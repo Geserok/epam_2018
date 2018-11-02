@@ -33,20 +33,20 @@ public class Atm implements Runnable {
         PaymentSystem paymentSystem = PaymentSystem.getInstance();
 
         for (int i = 0; i < quantityOfOperations; i++) {
-            BigDecimal money = randomBigDecimal(BigDecimal.ONE, BigDecimal.valueOf(1000l));
+            BigDecimal money = randomBigDecimal(BigDecimal.ONE, BigDecimal.valueOf(1000L));
             synchronized (PaymentSystem.class) {
                 if (getTypeOfOperation()) {
                     try {
                         paymentSystem.subtractMoney(money);
-                        System.out.println("Client take " + money + " from ATM№ " + id
+                        System.out.println("Client withdraw " + money + " from ATM№ " + id
                                 + ". Cash account deposit is " + paymentSystem.getCashAccount());
                     } catch (IllegalArgumentException e) {
-                        System.err.println(e.getMessage() + "Atm №" + id + " can't put cash " + money +
-                                " to client. Cash account deposit is " + paymentSystem.getCashAccount());
+                        System.err.println(e.getMessage() + "Client can't withdraw money " + money +
+                                " from ATM№ " + id + ". Cash account deposit is " + paymentSystem.getCashAccount());
                     }
-                } else if (getTypeOfOperation() == false) {
+                } else if (!getTypeOfOperation()) {
                     paymentSystem.addMoney(money);
-                    System.out.println("Client put " + money + " on cash account by Atm №" + id +
+                    System.out.println("Client deposit " + money + " on cash account by Atm №" + id +
                             ". Cash account deposit is " + paymentSystem.getCashAccount());
                 }
             }
