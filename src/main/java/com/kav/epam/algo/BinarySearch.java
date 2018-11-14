@@ -13,8 +13,8 @@ public class BinarySearch {
     /**
      * Method which search the place of element in Array
      *
-     * @param inputArray
-     * @param count
+     * @param inputArray the input array of ints
+     * @param count      the search count in {@param inputArray}
      * @return the place of {@param count} in the {@param inputArray}
      */
     public int search(int[] inputArray, int count) {

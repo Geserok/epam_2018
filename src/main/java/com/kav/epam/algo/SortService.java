@@ -3,7 +3,7 @@ package com.kav.epam.algo;
 import java.util.Arrays;
 
 public class SortService {
-    static int[] arr;
+    private static int[] arr;
 
     public static void main(String[] args) {
         demonstrate();
@@ -16,15 +16,15 @@ public class SortService {
         MergeSortable mergeSort = new MergeSortable();
 
         Sortable[] sortableArray = new Sortable[]{bubbleSort, qsort, radixSort, mergeSort};
-        for (int i = 0; i < sortableArray.length; i++) {
-            demo(sortableArray[i]);
+        for (Sortable sortable : sortableArray) {
+            demo(sortable);
         }
         BinarySearch binarySearch = new BinarySearch();
         System.out.println("Position of 5 in sorted array is: " + binarySearch.search(arr, 5));
     }
 
     private static void demo(Sortable sortable) {
-        System.out.println(sortable.getClass().getSimpleName().toString() + ": ");
+        System.out.println(sortable.getClass().getSimpleName() + ": ");
         System.out.print(Arrays.toString(arr = new int[]{3, 4, 5, 2, 1, 6, 9, 8, 7}));
         sortable.sort(arr);
         System.out.println(" -> " + Arrays.toString(arr));
