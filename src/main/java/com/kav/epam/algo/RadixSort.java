@@ -4,14 +4,14 @@ import java.util.Arrays;
 
 public class RadixSort {
 
-    public void sort(int[] inputArray){
+    public void sort(int[] inputArray) {
         radixSort(inputArray);
     }
 
     private void radixSort(int[] inputArray) {
         int maxNumber = getMaxNumber(inputArray);
 
-        for (int rank = 1; maxNumber / rank > 0 ; rank *= 10) {
+        for (int rank = 1; maxNumber / rank > 0; rank *= 10) {
             countSort(inputArray, rank);
         }
     }
@@ -20,7 +20,7 @@ public class RadixSort {
         int maxNumber = inputArray[0];
 
         for (int i = 1; i < inputArray.length; i++) {
-            if (inputArray[i] > maxNumber){
+            if (inputArray[i] > maxNumber) {
                 maxNumber = inputArray[i];
             }
         }
@@ -37,16 +37,16 @@ public class RadixSort {
             count[(inputArray[i] / rank) % 10]++;
         }
 
-        for (i = 1; i < 10; i++){
+        for (i = 1; i < 10; i++) {
             count[i] += count[i - 1];
         }
 
-        for (i = inputArray.length - 1; i >= 0 ; i--){
+        for (i = inputArray.length - 1; i >= 0; i--) {
             outputArray[count[(inputArray[i] / rank) % 10] - 1] = inputArray[i];
             count[(inputArray[i] / rank) % 10]--;
         }
 
-        for (i = 0; i < inputArray.length ; i++){
+        for (i = 0; i < inputArray.length; i++) {
             inputArray[i] = outputArray[i];
         }
     }
