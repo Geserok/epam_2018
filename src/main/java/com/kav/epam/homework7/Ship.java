@@ -2,17 +2,17 @@ package com.kav.epam.homework7;
 
 public abstract class Ship {
     int xCoordinateShipHead;
-    int yCoordinateOfShipHead;
+    int yCoordinateShipHead;
     int xCoordinateShipStern;
-    int yCoordinateOfShipStern;
+    int yCoordinateShipStern;
     int size;
     boolean state;
 
-    public Ship(int xCoordinateShipHead, int yCoordinateOfShipHead, int xCoordinateShipStern, int yCoordinateOfShipStern) {
+    public Ship(int xCoordinateShipHead, int yCoordinateShipHead, int xCoordinateShipStern, int yCoordinateShipStern) {
         this.xCoordinateShipHead = xCoordinateShipHead;
-        this.yCoordinateOfShipHead = yCoordinateOfShipHead;
+        this.yCoordinateShipHead = yCoordinateShipHead;
         this.xCoordinateShipStern = xCoordinateShipStern;
-        this.yCoordinateOfShipStern = yCoordinateOfShipStern;
+        this.yCoordinateShipStern = yCoordinateShipStern;
         this.state = true;
     }
 
@@ -24,8 +24,8 @@ public abstract class Ship {
         this.xCoordinateShipHead = xCoordinateShipHead;
     }
 
-    public void setyCoordinateOfShipHead(int yCoordinateOfShipHead) {
-        this.yCoordinateOfShipHead = yCoordinateOfShipHead;
+    public void setyCoordinateShipHead(int yCoordinateShipHead) {
+        this.yCoordinateShipHead = yCoordinateShipHead;
     }
 
     public void setSize(int size) {
@@ -36,8 +36,8 @@ public abstract class Ship {
         this.xCoordinateShipStern = xCoordinateShipStern;
     }
 
-    public void setyCoordinateOfShipStern(int yCoordinateOfShipStern) {
-        this.yCoordinateOfShipStern = yCoordinateOfShipStern;
+    public void setyCoordinateShipStern(int yCoordinateShipStern) {
+        this.yCoordinateShipStern = yCoordinateShipStern;
     }
 
     public boolean isState() {
@@ -48,8 +48,8 @@ public abstract class Ship {
         return xCoordinateShipHead;
     }
 
-    public int getyCoordinateOfShipHead() {
-        return yCoordinateOfShipHead;
+    public int getyCoordinateShipHead() {
+        return yCoordinateShipHead;
     }
 
     public int getSize() {
@@ -60,7 +60,7 @@ public abstract class Ship {
         return xCoordinateShipStern;
     }
 
-    public int getyCoordinateOfShipStern() {
-        return yCoordinateOfShipStern;
+    public int getyCoordinateShipStern() {
+        return yCoordinateShipStern;
     }
 }

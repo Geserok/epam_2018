@@ -1,14 +1,13 @@
 package com.kav.epam.homework7;
 
 public class ShipFactory {
-    Ship ship = null;
+    private Ship ship = null;
 
     public Ship createShip(int size, int xCoordinateShipHead, int yCoordinateShipHead,
                            int xCoordinateShipStern, int yCoordinateShipStern) {
-        coordinateCheck(xCoordinateShipHead);
-        coordinateCheck(yCoordinateShipHead);
-        coordinateCheck(xCoordinateShipStern);
-        coordinateCheck(yCoordinateShipStern);
+
+        coordinatesCheck(size, xCoordinateShipHead, yCoordinateShipHead,
+        xCoordinateShipStern, yCoordinateShipStern);
 
         if (size == 1) {
             ship = new SingleDeckShip(xCoordinateShipHead, yCoordinateShipHead,
@@ -28,9 +27,37 @@ public class ShipFactory {
         return ship;
     }
 
-    public void coordinateCheck(int coordinate) {
-        if (coordinate < 0 || coordinate > 9) {
-            throw new IllegalArgumentException("Wrong coordinate!");
+    private static void coordinateCheck(int coordinate) {
+        if (coordinate < 1 || coordinate > 10) {
+            throw new IllegalArgumentException("Wrong coordinate! Coordinate must be from 1 to 10");
+        }
+    }
+
+    private static void coordinatesCheck(int size, int xCoordinateShipHead, int yCoordinateShipHead,
+                                         int xCoordinateShipStern, int yCoordinateShipStern) {
+        coordinateCheck(xCoordinateShipHead);
+        coordinateCheck(yCoordinateShipHead);
+        coordinateCheck(xCoordinateShipStern);
+        coordinateCheck(yCoordinateShipStern);
+
+        if (yCoordinateShipStern == yCoordinateShipHead) {
+            if (xCoordinateShipStern == xCoordinateShipHead && size != 1) {
+                throw new IllegalArgumentException("Bad coordinates");
+            }
+            if (Math.abs(xCoordinateShipStern - xCoordinateShipHead) != size - 1) {
+                throw new IllegalArgumentException("Bad coordinates");
+            }
+        }
+
+        if (xCoordinateShipStern == xCoordinateShipHead) {
+            if (Math.abs(yCoordinateShipStern - yCoordinateShipHead) != size - 1) {
+                throw new IllegalArgumentException("Bad coordinates");
+            }
+        }
+
+        if (yCoordinateShipStern != yCoordinateShipHead &&
+                xCoordinateShipStern != xCoordinateShipHead) {
+            throw new IllegalArgumentException("Bad coordinates");
         }
     }
 }
