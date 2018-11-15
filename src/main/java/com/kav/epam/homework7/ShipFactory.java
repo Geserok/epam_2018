@@ -27,12 +27,6 @@ public class ShipFactory {
         return ship;
     }
 
-    private static void coordinateCheck(int coordinate) {
-        if (coordinate < 1 || coordinate > 10) {
-            throw new IllegalArgumentException("Wrong coordinate! Coordinate must be from 1 to 10");
-        }
-    }
-
     private static void coordinatesCheck(int size, int xCoordinateShipHead, int yCoordinateShipHead,
                                          int xCoordinateShipStern, int yCoordinateShipStern) {
         coordinateCheck(xCoordinateShipHead);
@@ -42,22 +36,28 @@ public class ShipFactory {
 
         if (yCoordinateShipStern == yCoordinateShipHead) {
             if (xCoordinateShipStern == xCoordinateShipHead && size != 1) {
-                throw new IllegalArgumentException("Bad coordinates");
+                throw new IllegalArgumentException("Bad coordinates. Size is not true");
             }
             if (Math.abs(xCoordinateShipStern - xCoordinateShipHead) != size - 1) {
-                throw new IllegalArgumentException("Bad coordinates");
+                throw new IllegalArgumentException("Bad coordinates. Size is not true");
             }
         }
 
         if (xCoordinateShipStern == xCoordinateShipHead) {
             if (Math.abs(yCoordinateShipStern - yCoordinateShipHead) != size - 1) {
-                throw new IllegalArgumentException("Bad coordinates");
+                throw new IllegalArgumentException("Bad coordinates. Size is not true");
             }
         }
 
         if (yCoordinateShipStern != yCoordinateShipHead &&
                 xCoordinateShipStern != xCoordinateShipHead) {
-            throw new IllegalArgumentException("Bad coordinates");
+            throw new IllegalArgumentException("Bad coordinates. Ships must be line");
+        }
+    }
+
+    private static void coordinateCheck(int coordinate) {
+        if (coordinate < 1 || coordinate > 10) {
+            throw new IllegalArgumentException("Wrong coordinate! Coordinate must be from 1 to 10");
         }
     }
 }
