@@ -56,7 +56,7 @@ public class ShipFactory {
     }
 
     private static void coordinateCheck(int coordinate) {
-        if (coordinate < 1 || coordinate > 10) {
+        if (coordinate < 0 || coordinate > 10) {
             throw new IllegalArgumentException("Wrong coordinate! Coordinate must be from 1 to 10");
         }
     }
