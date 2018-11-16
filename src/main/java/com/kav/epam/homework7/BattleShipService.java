@@ -21,8 +21,8 @@ public class BattleShipService {
         String[][] computerField = fieldCreator.createComputerField();
         fieldCreator.printField(strings);
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            for (int i = 1; i < 2; i++) {
-                for (int j = 2 - i; j > 0; j--) {
+            for (int i = 1; i < 5; i++) {
+                for (int j = 5 - i; j > 0; j--) {
                     System.out.print("Input a coordinates of " + i + "Deck Ship: ");
                     System.out.print("Input a head coordinates in format (Letter + number) ");
                     int xHead = Character.toLowerCase(reader.readLine().charAt(0)) - 97;
