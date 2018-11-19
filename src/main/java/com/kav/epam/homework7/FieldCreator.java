@@ -1,7 +1,5 @@
 package com.kav.epam.homework7;
 
-import java.util.Arrays;
-
 public class FieldCreator {
     public String[][] create() {
         String[][] result = new String[11][33];
@@ -56,124 +54,61 @@ public class FieldCreator {
 
     public void setShip(String[][] field, Ship ship) {
         nearlyShipCheck(field, ship);
-        if (ship.xCoordinateShipStern == ship.xCoordinateShipHead) {
-            if (ship.yCoordinateShipStern >= ship.yCoordinateShipHead) {
-                for (int i = ship.yCoordinateShipHead; i <= ship.yCoordinateShipStern; i++) {
-                    field[ship.xCoordinateShipStern][i] = "[X]";
-                }
-            } else {
-                for (int i = ship.yCoordinateShipStern; i <= ship.yCoordinateShipHead; i++) {
-                    field[ship.xCoordinateShipStern][i] = "[X]";
-                }
+        int x = ship.xCoordinateShipHead;
+        int y = ship.yCoordinateShipHead;
+        String direction = ship.getDirection();
+        if (direction.equalsIgnoreCase("n")) {
+            for (int i = x; i > x - ship.size; i--) {
+                field[i][y] = "[X]";
             }
-        }
-        if (ship.yCoordinateShipStern == ship.yCoordinateShipHead) {
-            if (ship.xCoordinateShipStern >= ship.xCoordinateShipHead) {
-                for (int i = ship.xCoordinateShipHead; i <= ship.xCoordinateShipStern; i++) {
-                    field[i][ship.yCoordinateShipHead] = "[X]";
-                }
-            } else {
-                for (int i = ship.xCoordinateShipStern; i <= ship.xCoordinateShipHead; i++) {
-                    field[i][ship.yCoordinateShipHead] = "[X]";
-                }
+        } else if (direction.equalsIgnoreCase("s")) {
+            for (int i = x; i < x + ship.size; i++) {
+                field[i][y] = "[X]";
+            }
+        } else if (direction.equalsIgnoreCase("w")) {
+            for (int i = y; i > y - ship.size; i--) {
+                field[x][i] = "[X]";
+            }
+        } else if (direction.equalsIgnoreCase("e")) {
+            for (int i = y; i < y + ship.size; i++) {
+                field[x][y] = "[X]";
             }
         }
 
     }
 
     private static void nearlyShipCheck(String[][] field, Ship ship) {
-        if (ship.xCoordinateShipHead == ship.xCoordinateShipStern) {
-            if (ship.yCoordinateShipHead >= ship.yCoordinateShipStern) {
-                for (int i = -1; i < 2; i++) {
-                    for (int j = ship.yCoordinateShipStern - 1; j <= ship.yCoordinateShipHead + 1; j++) {
-                        try {
-                            if (field[i + ship.xCoordinateShipHead][j].equals("[X]")) {
-                                throw new IllegalArgumentException("Wrong! Your ships must be farther apart!1");
-                            }
-                        } catch (IndexOutOfBoundsException e) {
-                            continue;
-                        }
-                    }
-                }
-            } else if (ship.yCoordinateShipHead < ship.yCoordinateShipStern) {
-                for (int i = -1; i < 2; i++) {
-                    for (int j = ship.yCoordinateShipHead - 1; j <= ship.yCoordinateShipStern + 1; j++) {
-                        try {
-                            if (field[i + ship.xCoordinateShipHead][j].equals("[X]")) {
-                                throw new IllegalArgumentException("Wrong! Your ships must be farther apart!2");
-                            }
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            continue;
-                        }
+        String direction = ship.getDirection();
+        int x = ship.xCoordinateShipHead;
+        int y = ship.yCoordinateShipHead;
 
-                    }
+        if (direction.equalsIgnoreCase("n")) {
+            for (int i = x + 1; i >= x - ship.size; i--) {
+                for (int j = y - 1; j <= y + 1; j++) {
+                    stringCheck(field, i, j);
                 }
             }
-        }
-        if (ship.yCoordinateShipHead == ship.yCoordinateShipStern) {
-            if (ship.xCoordinateShipHead >= ship.xCoordinateShipStern) {
-                for (int i = ship.xCoordinateShipStern - 1; i <= ship.xCoordinateShipHead + 1; i++) {
-                    for (int j = -1; j < 2; j++) {
-                        try {
-                            if (field[i][j + ship.yCoordinateShipStern].equals("[X]")) {
-                                throw new IllegalArgumentException("Wrong! Your ships must be farther apart!3");
-                            }
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            continue;
-                        }
-
-                    }
+        } else if (direction.equalsIgnoreCase("s")) {
+            for (int i = x - 1; i <= x + ship.size; i++) {
+                for (int j = y - 1; j <= y + 1; j++) {
+                    stringCheck(field, i, j);
                 }
-            } else if (ship.xCoordinateShipHead < ship.xCoordinateShipStern) {
-                for (int i = ship.xCoordinateShipHead - 1; i <= ship.xCoordinateShipStern + 1; i++) {
-                    for (int j = -1; j < 2; j++) {
-                        try {
-                            if (field[i][j + ship.yCoordinateShipHead].equals("[X]")) {
-                                throw new IllegalArgumentException("Wrong! Your ships must be farther apart!4");
-                            }
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            continue;
-                        }
-                    }
+            }
+        } else if (direction.equalsIgnoreCase("w")) {
+            for (int i = x - 1; i <= x + 1; i++) {
+                for (int j = y + 1; j >= y - ship.size; j--) {
+                    stringCheck(field, i, j);
+                }
+            }
+        } else if (direction.equalsIgnoreCase("e")) {
+            for (int i = x - 1; i <= x + 1; i++) {
+                for (int j = y - 1; j <= y + ship.size; j++) {
+                    stringCheck(field, i, j);
                 }
             }
         }
     }
 
-    public static void nearlyShipMark(String[][] field, Ship ship) {
-        if (ship.xCoordinateShipHead == ship.xCoordinateShipStern) {
-            if (ship.yCoordinateShipHead >= ship.yCoordinateShipStern) {
-                for (int i = -1; i < 2; i++) {
-                    for (int j = ship.yCoordinateShipStern - 1; j <= ship.yCoordinateShipHead + 1; j++) {
-                        markCoordinate(field, ship, i, j);
-                    }
-                }
-            } else if (ship.yCoordinateShipHead < ship.yCoordinateShipStern) {
-                for (int i = -1; i < 2; i++) {
-                    for (int j = ship.yCoordinateShipHead - 1; j <= ship.yCoordinateShipStern + 1; j++) {
-                        markCoordinate(field, ship, i, j);
-
-                    }
-                }
-            }
-        }
-        if (ship.yCoordinateShipHead == ship.yCoordinateShipStern) {
-            if (ship.xCoordinateShipHead >= ship.xCoordinateShipStern) {
-                for (int i = ship.xCoordinateShipStern - 1; i <= ship.xCoordinateShipHead + 1; i++) {
-                    for (int j = -1; j < 2; j++) {
-                        markCoordinate(field, ship, i, j);
-
-                    }
-                }
-            } else if (ship.xCoordinateShipHead < ship.xCoordinateShipStern) {
-                for (int i = ship.xCoordinateShipHead - 1; i <= ship.xCoordinateShipStern + 1; i++) {
-                    for (int j = -1; j < 2; j++) {
-                        markCoordinate(field, ship, i, j);
-                    }
-                }
-            }
-        }
-    }
 
     private static void markCoordinate(String[][] field, Ship ship, int i, int j) {
         try {
@@ -184,6 +119,16 @@ public class FieldCreator {
             }
         } catch (IndexOutOfBoundsException e) {
             return;
+        }
+    }
+
+    private static void stringCheck(String[][] field, int i, int j){
+        try{
+            if (field[i][j].equalsIgnoreCase("[X]")) {
+                throw new IllegalArgumentException("Wrong! Another ship too close");
+            }
+        } catch (ArrayIndexOutOfBoundsException e){
+
         }
     }
 

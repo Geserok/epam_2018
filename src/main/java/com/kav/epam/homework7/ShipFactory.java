@@ -3,61 +3,49 @@ package com.kav.epam.homework7;
 public class ShipFactory {
     private Ship ship = null;
 
-    public Ship createShip(int size, int xCoordinateShipHead, int yCoordinateShipHead,
-                           int xCoordinateShipStern, int yCoordinateShipStern) {
+    public Ship createShip(int size, int xCoordinateShipHead, int yCoordinateShipHead, String direction) {
 
-        coordinatesCheck(size, xCoordinateShipHead, yCoordinateShipHead,
-        xCoordinateShipStern, yCoordinateShipStern);
+        coordinatesCheck(size, xCoordinateShipHead, yCoordinateShipHead, direction);
 
         if (size == 1) {
-            ship = new SingleDeckShip(xCoordinateShipHead, yCoordinateShipHead,
-                    xCoordinateShipStern, yCoordinateShipStern);
+            ship = new SingleDeckShip(xCoordinateShipHead, yCoordinateShipHead, direction);
         } else if (size == 2) {
-            ship = new DoubleDeckShip(xCoordinateShipHead, yCoordinateShipHead,
-                    xCoordinateShipStern, yCoordinateShipStern);
+            ship = new DoubleDeckShip(xCoordinateShipHead, yCoordinateShipHead, direction);
         } else if (size == 3) {
-            ship = new ThreeDeckShip(xCoordinateShipHead, yCoordinateShipHead,
-                    xCoordinateShipStern, yCoordinateShipStern);
+            ship = new ThreeDeckShip(xCoordinateShipHead, yCoordinateShipHead, direction);
         } else if (size == 4) {
-            ship = new FourDeckShip(xCoordinateShipHead, yCoordinateShipHead,
-                    xCoordinateShipStern, yCoordinateShipStern);
+            ship = new FourDeckShip(xCoordinateShipHead, yCoordinateShipHead, direction);
         } else {
             throw new IllegalArgumentException("Wrong size of the ship!");
         }
         return ship;
     }
 
-    private static void coordinatesCheck(int size, int xCoordinateShipHead, int yCoordinateShipHead,
-                                         int xCoordinateShipStern, int yCoordinateShipStern) {
+    private static void coordinatesCheck(int size, int xCoordinateShipHead, int yCoordinateShipHead, String direction) {
         coordinateCheck(xCoordinateShipHead);
         coordinateCheck(yCoordinateShipHead);
-        coordinateCheck(xCoordinateShipStern);
-        coordinateCheck(yCoordinateShipStern);
-
-        if (yCoordinateShipStern == yCoordinateShipHead) {
-            if (xCoordinateShipStern == xCoordinateShipHead && size != 1) {
-                throw new IllegalArgumentException("Bad coordinates. Size is not true");
+        if (direction.equalsIgnoreCase("n")) {
+            for (int i = 0; i < size; i++) {
+                coordinateCheck(xCoordinateShipHead - i);
             }
-            if (Math.abs(xCoordinateShipStern - xCoordinateShipHead) != size - 1) {
-                throw new IllegalArgumentException("Bad coordinates. Size is not true");
+        } else if (direction.equalsIgnoreCase("s")) {
+            for (int i = 0; i < size; i++) {
+                coordinateCheck(xCoordinateShipHead + i);
             }
-        }
-
-        if (xCoordinateShipStern == xCoordinateShipHead) {
-            if (Math.abs(yCoordinateShipStern - yCoordinateShipHead) != size - 1) {
-                throw new IllegalArgumentException("Bad coordinates. Size is not true");
+        } else if (direction.equalsIgnoreCase("w")) {
+            for (int i = 0; i < size; i++) {
+                coordinateCheck(yCoordinateShipHead - i);
             }
-        }
-
-        if (yCoordinateShipStern != yCoordinateShipHead &&
-                xCoordinateShipStern != xCoordinateShipHead) {
-            throw new IllegalArgumentException("Bad coordinates. Ships must be line");
+        } else if (direction.equalsIgnoreCase("e")) {
+            for (int i = 0; i < size; i++) {
+                coordinateCheck(xCoordinateShipHead + i);
+            }
         }
     }
 
     private static void coordinateCheck(int coordinate) {
         if (coordinate < 0 || coordinate > 10) {
-            throw new IllegalArgumentException("Wrong coordinate! Coordinate must be from 1 to 10");
+            throw new IllegalArgumentException("Wrong coordinate!");
         }
     }
 }

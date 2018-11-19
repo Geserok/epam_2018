@@ -1,10 +1,9 @@
 package com.kav.epam.homework7;
 
 public class DoubleDeckShip extends Ship {
-    public DoubleDeckShip(int xCoordinateShipHead, int yCoordinateOfShipHead,
-                          int xCoordinateShipStern, int yCoordinateOfShipStern) {
-        super(xCoordinateShipHead, yCoordinateOfShipHead, xCoordinateShipStern, yCoordinateOfShipStern);
+    public DoubleDeckShip(int xCoordinateShipHead, int yCoordinateOfShipHead, String direction) {
+        super(xCoordinateShipHead, yCoordinateOfShipHead, direction);
         this.size = 2;
-        this.state = 2;
+        this.lives = 2;
     }
 }

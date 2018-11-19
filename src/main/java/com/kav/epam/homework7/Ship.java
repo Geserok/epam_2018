@@ -5,21 +5,19 @@ import java.util.ArrayList;
 public abstract class Ship {
     int xCoordinateShipHead;
     int yCoordinateShipHead;
-    int xCoordinateShipStern;
-    int yCoordinateShipStern;
+    String direction;
     int size;
-    int state;
+    int lives;
 
-    public Ship(int xCoordinateShipHead, int yCoordinateShipHead, int xCoordinateShipStern, int yCoordinateShipStern) {
+    public Ship(int xCoordinateShipHead, int yCoordinateShipHead, String direction) {
         this.xCoordinateShipHead = xCoordinateShipHead;
         this.yCoordinateShipHead = yCoordinateShipHead;
-        this.xCoordinateShipStern = xCoordinateShipStern;
-        this.yCoordinateShipStern = yCoordinateShipStern;
-        this.state = this.size;
+        this.direction = direction;
+        this.lives = this.size;
     }
 
-    public void setState(int state) {
-        this.state = this.state - 1;
+    public void removeLife() {
+        this.lives = this.lives - 1;
     }
 
     public void setxCoordinateShipHead(int xCoordinateShipHead) {
@@ -34,16 +32,8 @@ public abstract class Ship {
         this.size = size;
     }
 
-    public void setxCoordinateShipStern(int xCoordinateShipStern) {
-        this.xCoordinateShipStern = xCoordinateShipStern;
-    }
-
-    public void setyCoordinateShipStern(int yCoordinateShipStern) {
-        this.yCoordinateShipStern = yCoordinateShipStern;
-    }
-
     public int isState() {
-        return state;
+        return lives;
     }
 
     public int getxCoordinateShipHead() {
@@ -58,38 +48,29 @@ public abstract class Ship {
         return size;
     }
 
-    public int getxCoordinateShipStern() {
-        return xCoordinateShipStern;
-    }
-
-    public int getyCoordinateShipStern() {
-        return yCoordinateShipStern;
+    public String getDirection() {
+        return direction;
     }
 
     public ArrayList<String> getCoordinates(){
-        int xHead;
-        int xStern;
-        int yHead;
-        int yStern;
         ArrayList<String> coordinates = new ArrayList<>();
-        if (this.xCoordinateShipHead >= this.xCoordinateShipStern){
-            xHead = this.xCoordinateShipHead;
-            xStern = this.xCoordinateShipStern;
-        } else {
-            xStern = this.xCoordinateShipHead;
-            xHead = this.xCoordinateShipStern;
-        }
-        if (this.yCoordinateShipHead >= this.yCoordinateShipStern){
-            yHead = this.yCoordinateShipHead;
-            yStern = this.yCoordinateShipStern;
-        } else {
-            yStern = this.yCoordinateShipHead;
-            yHead = this.yCoordinateShipStern;
-        }
+        coordinates.add(String.valueOf(xCoordinateShipHead) + yCoordinateShipHead);
 
-        for (int i = xStern; i <= xHead; i++) {
-            for (int j = yStern; j <= yHead; j++) {
-                coordinates.add(String.valueOf(i) + j);
+        if (direction.equalsIgnoreCase("n")) {
+            for (int i = 0; i < size; i++) {
+                coordinates.add(String.valueOf(xCoordinateShipHead - i) + yCoordinateShipHead);
+            }
+        } else if (direction.equalsIgnoreCase("s")) {
+            for (int i = 0; i < size; i++) {
+                coordinates.add(String.valueOf(xCoordinateShipHead + i) + yCoordinateShipHead);
+            }
+        } else if (direction.equalsIgnoreCase("w")) {
+            for (int i = 0; i < size; i++) {
+                coordinates.add(String.valueOf(xCoordinateShipHead) + String.valueOf(yCoordinateShipHead - i));
+            }
+        } else if (direction.equalsIgnoreCase("e")) {
+            for (int i = 0; i < size; i++) {
+                coordinates.add(String.valueOf(xCoordinateShipHead) + String.valueOf(yCoordinateShipHead + i));
             }
         }
         return coordinates;
