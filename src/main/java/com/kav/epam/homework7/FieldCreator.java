@@ -18,15 +18,15 @@ public class FieldCreator {
         return result;
     }
 
-    public String[][] createComputerField(){
+    public String[][] createComputerField() {
         String[][] computerField = new String[11][11];
         fieldFill(computerField);
         return computerField;
     }
 
     private void fieldFill(String[][] computerField) {
-        for (int i = 0; i < computerField.length; i++){
-            for (int j = 0; j < computerField[i].length ; j++) {
+        for (int i = 0; i < computerField.length; i++) {
+            for (int j = 0; j < computerField[i].length; j++) {
                 computerField[i][j] = "  ";
             }
         }
@@ -139,4 +139,52 @@ public class FieldCreator {
             }
         }
     }
+
+    public static void nearlyShipMark(String[][] field, Ship ship) {
+        if (ship.xCoordinateShipHead == ship.xCoordinateShipStern) {
+            if (ship.yCoordinateShipHead >= ship.yCoordinateShipStern) {
+                for (int i = -1; i < 2; i++) {
+                    for (int j = ship.yCoordinateShipStern - 1; j <= ship.yCoordinateShipHead + 1; j++) {
+                        markCoordinate(field, ship, i, j);
+                    }
+                }
+            } else if (ship.yCoordinateShipHead < ship.yCoordinateShipStern) {
+                for (int i = -1; i < 2; i++) {
+                    for (int j = ship.yCoordinateShipHead - 1; j <= ship.yCoordinateShipStern + 1; j++) {
+                        markCoordinate(field, ship, i, j);
+
+                    }
+                }
+            }
+        }
+        if (ship.yCoordinateShipHead == ship.yCoordinateShipStern) {
+            if (ship.xCoordinateShipHead >= ship.xCoordinateShipStern) {
+                for (int i = ship.xCoordinateShipStern - 1; i <= ship.xCoordinateShipHead + 1; i++) {
+                    for (int j = -1; j < 2; j++) {
+                        markCoordinate(field, ship, i, j);
+
+                    }
+                }
+            } else if (ship.xCoordinateShipHead < ship.xCoordinateShipStern) {
+                for (int i = ship.xCoordinateShipHead - 1; i <= ship.xCoordinateShipStern + 1; i++) {
+                    for (int j = -1; j < 2; j++) {
+                        markCoordinate(field, ship, i, j);
+                    }
+                }
+            }
+        }
+    }
+
+    private static void markCoordinate(String[][] field, Ship ship, int i, int j) {
+        try {
+            if (field[i + ship.xCoordinateShipHead][j].equals("[ ]") ||
+                    field[i + ship.xCoordinateShipHead][j].equals("[*]") ||
+                    field[i + ship.xCoordinateShipHead][j].equals("[0]")) {
+                field[i][j] = "[*]";
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return;
+        }
+    }
+
 }

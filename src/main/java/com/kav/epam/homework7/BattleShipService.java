@@ -3,7 +3,7 @@ package com.kav.epam.homework7;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class BattleShipService {
 
@@ -20,8 +20,10 @@ public class BattleShipService {
         String[][] strings = fieldCreator.create();
         String[][] computerField = fieldCreator.createComputerField();
         fieldCreator.printField(strings);
+
+        Ship[] shipPool = new Ship[1];
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            for (int i = 1; i < 5; i++) {
+           /* for (int i = 1; i < 5; i++) {
                 for (int j = 5 - i; j > 0; j--) {
                     System.out.print("Input a coordinates of " + i + "Deck Ship: ");
                     System.out.print("Input a head coordinates in format (Letter + number) ");
@@ -40,12 +42,19 @@ public class BattleShipService {
                     }
                 }
 
-            }
+            }*/
+            Ship ship = shipFactory.createShip(2, Character.toLowerCase('a') - 97, 1, Character.toLowerCase('b') - 97, 1);
+            Ship ship2 = shipFactory.createShip(1, Character.toLowerCase('e') - 97, 1, Character.toLowerCase('e') - 97, 1);
+            fieldCreator.setShip(strings, ship);
+            fieldCreator.setShip(strings, ship2);
+            shipPool[0] = ship;
+            fieldCreator.printField(strings);
+
             while (isGameOver(strings)) {
                 System.out.println("input coordinates to Fire in format (letter + number):");
                 int xHead = Character.toLowerCase(reader.readLine().charAt(0)) - 97;
                 int yHead = Integer.parseInt(reader.readLine());
-                fire(strings, xHead, yHead);
+                fire(strings, shipPool, xHead, yHead);
                 fieldCreator.printField(strings);
             }
             fieldCreator.printField(strings);
@@ -54,51 +63,68 @@ public class BattleShipService {
         }
     }
 
-    private boolean fire(String[][] field, int x, int y) {
-        if (field[x][y].equals("[X]")) {
-            field[x][y] = "[*]";
-            if (isAlive(field, x, y)) {
-                return true;
-            } else {
-                for (int i = x - 1; i <= x + 1; i++) {
-                    for (int j = y - 1; j <= y + 1; j++) {
-                        try {
-                            if (field[i][j].equals("[ ]") || field[i][j].equals("[0]") || field[i][j].equals("[*]")) {
-                                field[i][j] = "[*]";
+    private boolean fire(String[][] field, Ship[] shipPool, int x, int y) {
+        Boolean fireFlag = false;
+        Ship ship = null;
+        for (int i = 0; i < shipPool.length; i++) {
+            ArrayList<String> coordinates = shipPool[i].getCoordinates();
+            for (int j = 0; j < coordinates.size(); j++) {
+                if (coordinates.get(j).equals(String.valueOf(x) + y)) {
+                    fireFlag = true;
+                    ship = shipPool[i];
+                    break;
+                }
+            }
+        }
+
+        if (fireFlag == true) {
+            if (field[x][y].equals("[X]")) {
+                field[x][y] = "[*]";
+                ship.setState(1);
+                if (ship.isState() > 0) {
+                    return true;
+                } else {
+                    ArrayList<String> coordinates = ship.getCoordinates();
+
+                    for (String coordinate : coordinates) {
+                        for (int i = Integer.parseInt(String.valueOf(
+                                coordinate.toCharArray()[0])) - 1; i < Integer.parseInt(
+                                        String.valueOf(coordinate.toCharArray()[0])) + 2; i++) {
+                            for (int j = Integer.parseInt(String.valueOf(coordinate.toCharArray()[1])) - 1;
+                                 j < Integer.parseInt(String.valueOf(coordinate.toCharArray()[1])) + 2; j++) {
+                                try {
+                                    field[i][j] = "[0]";
+                                } catch (ArrayIndexOutOfBoundsException e){
+
+                                }
+
                             }
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            continue;
                         }
                     }
+                    for (String coordinate : coordinates) {
+                        try {
+                            field[Integer.parseInt(String.valueOf(coordinate.toCharArray()[0]))]
+                                    [Integer.parseInt(String.valueOf(coordinate.toCharArray()[1]))] = "[*]";
+                        } catch (ArrayIndexOutOfBoundsException e){
+
+                        }
+                    }
+                    return true;
                 }
+            } else if (field[x][y].equals("[*]")) {
                 return true;
             }
-
-        } else if (field[x][y].equals("[ ]")) {
-            field[x][y] = "[0]";
-            return false;
-        } else if (field[x][y].equals("[*]") || field[x][y].equals("[0]")) {
-            System.out.println("This coordinates was already fired!");
-            return true;
-        }
-        throw new IllegalArgumentException("Wrong");
-    }
-
-    private boolean isAlive(String[][] field, int x, int y) {
-        boolean flag = false;
-        for (int i = x - 1; i <= x + 1; i++) {
-            for (int j = y - 1; j <= y + 1; j++) {
-                try {
-                    if (field[i][j].equals("[X]")) {
-                        flag = true;
-                        break;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    continue;
-                }
+        } else {
+            if (field[x][y].equals("[0]")) {
+                System.out.println("This coordinates were already fired");
+                return true;
+            } else if (field[x][y].equals("[ ]")) {
+                field[x][y] = "[0]";
+                return false;
             }
+
         }
-        return flag;
+        return fireFlag;
     }
 
     private boolean isGameOver(String[][] field) {

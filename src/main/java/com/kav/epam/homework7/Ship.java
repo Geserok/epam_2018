@@ -1,23 +1,25 @@
 package com.kav.epam.homework7;
 
+import java.util.ArrayList;
+
 public abstract class Ship {
     int xCoordinateShipHead;
     int yCoordinateShipHead;
     int xCoordinateShipStern;
     int yCoordinateShipStern;
     int size;
-    boolean state;
+    int state;
 
     public Ship(int xCoordinateShipHead, int yCoordinateShipHead, int xCoordinateShipStern, int yCoordinateShipStern) {
         this.xCoordinateShipHead = xCoordinateShipHead;
         this.yCoordinateShipHead = yCoordinateShipHead;
         this.xCoordinateShipStern = xCoordinateShipStern;
         this.yCoordinateShipStern = yCoordinateShipStern;
-        this.state = true;
+        this.state = this.size;
     }
 
-    public void setState(boolean state) {
-        this.state = state;
+    public void setState(int state) {
+        this.state = this.state - 1;
     }
 
     public void setxCoordinateShipHead(int xCoordinateShipHead) {
@@ -40,7 +42,7 @@ public abstract class Ship {
         this.yCoordinateShipStern = yCoordinateShipStern;
     }
 
-    public boolean isState() {
+    public int isState() {
         return state;
     }
 
@@ -62,5 +64,34 @@ public abstract class Ship {
 
     public int getyCoordinateShipStern() {
         return yCoordinateShipStern;
+    }
+
+    public ArrayList<String> getCoordinates(){
+        int xHead;
+        int xStern;
+        int yHead;
+        int yStern;
+        ArrayList<String> coordinates = new ArrayList<>();
+        if (this.xCoordinateShipHead >= this.xCoordinateShipStern){
+            xHead = this.xCoordinateShipHead;
+            xStern = this.xCoordinateShipStern;
+        } else {
+            xStern = this.xCoordinateShipHead;
+            xHead = this.xCoordinateShipStern;
+        }
+        if (this.yCoordinateShipHead >= this.yCoordinateShipStern){
+            yHead = this.yCoordinateShipHead;
+            yStern = this.yCoordinateShipStern;
+        } else {
+            yStern = this.yCoordinateShipHead;
+            yHead = this.yCoordinateShipStern;
+        }
+
+        for (int i = xStern; i <= xHead; i++) {
+            for (int j = yStern; j <= yHead; j++) {
+                coordinates.add(String.valueOf(i) + j);
+            }
+        }
+        return coordinates;
     }
 }

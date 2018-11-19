@@ -5,5 +5,6 @@ public class DoubleDeckShip extends Ship {
                           int xCoordinateShipStern, int yCoordinateOfShipStern) {
         super(xCoordinateShipHead, yCoordinateOfShipHead, xCoordinateShipStern, yCoordinateOfShipStern);
         this.size = 2;
+        this.state = 2;
     }
 }
