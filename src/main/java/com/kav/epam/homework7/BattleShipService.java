@@ -50,6 +50,7 @@ public class BattleShipService {
             shipPool[0] = ship;
             fieldCreator.printField(strings);
 
+
             while (isGameOver(strings)) {
                 System.out.println("input coordinates to Fire in format (letter + number):");
                 int xHead = Character.toLowerCase(reader.readLine().charAt(0)) - 97;
