@@ -71,7 +71,7 @@ public class FieldCreator {
             }
         } else if (direction.equalsIgnoreCase("e")) {
             for (int i = y; i < y + ship.size; i++) {
-                field[x][y] = "[X]";
+                field[x][i] = "[X]";
             }
         }
 
@@ -79,28 +79,41 @@ public class FieldCreator {
 
     private static void nearlyShipCheck(String[][] field, Ship ship) {
         String direction = ship.getDirection();
+        int size = ship.size;
         int x = ship.xCoordinateShipHead;
         int y = ship.yCoordinateShipHead;
 
         if (direction.equalsIgnoreCase("n")) {
+            if (size - x > 0) {
+                throw new IllegalArgumentException("Wrong direction!");
+            }
             for (int i = x + 1; i >= x - ship.size; i--) {
                 for (int j = y - 1; j <= y + 1; j++) {
                     stringCheck(field, i, j);
                 }
             }
         } else if (direction.equalsIgnoreCase("s")) {
+            if (x + size > 10) {
+                throw new IllegalArgumentException("Wrong direction!");
+            }
             for (int i = x - 1; i <= x + ship.size; i++) {
                 for (int j = y - 1; j <= y + 1; j++) {
                     stringCheck(field, i, j);
                 }
             }
         } else if (direction.equalsIgnoreCase("w")) {
+            if (size - y >= 1) {
+                throw new IllegalArgumentException("Wrong direction!");
+            }
             for (int i = x - 1; i <= x + 1; i++) {
                 for (int j = y + 1; j >= y - ship.size; j--) {
                     stringCheck(field, i, j);
                 }
             }
         } else if (direction.equalsIgnoreCase("e")) {
+            if (size + y > 10) {
+                throw new IllegalArgumentException("Wrong direction!");
+            }
             for (int i = x - 1; i <= x + 1; i++) {
                 for (int j = y - 1; j <= y + ship.size; j++) {
                     stringCheck(field, i, j);

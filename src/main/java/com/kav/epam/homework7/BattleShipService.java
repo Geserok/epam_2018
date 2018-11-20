@@ -18,10 +18,13 @@ public class BattleShipService {
 
         FieldCreator fieldCreator = new FieldCreator();
         String[][] strings = fieldCreator.create();
-        String[][] computerField = fieldCreator.createComputerField();
+        Computer computer = new Computer();
+
+        String[][] computerField = computer.setShips();
         fieldCreator.printField(strings);
 
-        Ship[] shipPool = new Ship[2];
+        ArrayList<Ship> shipPool = new ArrayList<>();
+        ArrayList<Ship> computerShipPool = computer.getComputerShipPool();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
            /* for (int i = 1; i < 5; i++) {
                 for (int j = 5 - i; j > 0; j--) {
@@ -47,8 +50,8 @@ public class BattleShipService {
             Ship ship2 = shipFactory.createShip(1, Character.toLowerCase('e') - 97, 3, "e");
             fieldCreator.setShip(strings, ship);
             fieldCreator.setShip(strings, ship2);
-            shipPool[0] = ship;
-            shipPool[1] = ship2;
+            shipPool.add(ship);
+            shipPool.add(ship2);
             fieldCreator.printField(strings);
 
 
@@ -56,7 +59,7 @@ public class BattleShipService {
                 System.out.println("input coordinates to Fire in format (letter + number):");
                 int xHead = Character.toLowerCase(reader.readLine().charAt(0)) - 97;
                 int yHead = Integer.parseInt(reader.readLine());
-                fire(strings, shipPool, xHead, yHead);
+                fire(computerField, computerShipPool, xHead, yHead);
                 fieldCreator.printField(strings);
             }
             fieldCreator.printField(strings);
@@ -65,13 +68,14 @@ public class BattleShipService {
         }
     }
 
-    private boolean fire(String[][] field, Ship[] shipPool, int x, int y) {
+    private boolean fire(String[][] field, ArrayList<Ship> shipPool, int x, int y) {
         try {
             coordinateCheck(x, y);
         } catch (IllegalArgumentException e){
             System.out.println("Coordinates is out of range!");
             return true;
         }
+        y = y;
         boolean fireFlag = false;
         Ship ship = null;
 
@@ -92,12 +96,14 @@ public class BattleShipService {
                 field[x][y] = "[*]";
                 ship.removeLife();
                 if (ship.lives > 0) {
+                    System.out.println("Hit");
                     return true;
                 } else {
                     if (isGameOver(field)){
                         System.out.println("Game is over! Do you want to remake? Press y or n");
                         remake();
                     }
+                    System.out.println("Kill");
                     ArrayList<String> coordinates = ship.getCoordinates();
 
                     for (String coordinate : coordinates) {
@@ -136,6 +142,7 @@ public class BattleShipService {
                 System.out.println("This coordinates were already fired");
                 return true;
             } else if (field[x][y].equals("[ ]")) {
+                System.out.println("Miss");
                 field[x][y] = "[0]";
                 return false;
             }

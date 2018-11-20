@@ -75,4 +75,14 @@ public abstract class Ship {
         }
         return coordinates;
     }
+
+    @Override
+    public String toString() {
+        return "Ship{" +
+                "xCoordinateShipHead=" + xCoordinateShipHead +
+                ", yCoordinateShipHead=" + yCoordinateShipHead +
+                ", direction='" + direction + '\'' +
+                ", size=" + size +
+                '}';
+    }
 }
