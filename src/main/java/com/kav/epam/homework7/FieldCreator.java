@@ -40,7 +40,7 @@ public class FieldCreator {
     }
 
 
-    public void printField(String[][] arr) {
+    public static void printField(String[][] arr) {
         System.out.print("  1  2  3  4  5  6  7  8  9  10");
         System.out.print("                      ");
         System.out.println("  1  2  3  4  5  6  7  8  9  10");

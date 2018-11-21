@@ -5,114 +5,87 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import static com.kav.epam.homework7.FieldCreator.printField;
+
 public class BattleShipService {
 
 
     public static void main(String[] args) {
         BattleShipService battleShipService = new BattleShipService();
-        battleShipService.start();
+        battleShipService.startPreparation();
     }
 
-    public void start() {
-        ShipFactory shipFactory = new ShipFactory();
-
-        FieldCreator fieldCreator = new FieldCreator();
-        String[][] personField = fieldCreator.create();
+    public void startPreparation() {
         Computer computer = new Computer();
+        Person person = new Person();
 
-        String[][] computerField = computer.setShips();
-        fieldCreator.printField(personField);
+        String[][] computerField = computer.autoSetShips();
+        String[][] personField = new String[11][33];
 
-        ArrayList<Ship> shipPool = new ArrayList<>();
-        ArrayList<Ship> computerShipPool = computer.getComputerShipPool();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-           /* for (int i = 1; i < 5; i++) {
-                for (int j = 5 - i; j > 0; j--) {
-                    System.out.print("Input a coordinates of " + i + "Deck Ship: ");
-                    System.out.print("Input a head coordinates in format (Letter + number) ");
-                    int xHead = Character.toLowerCase(reader.readLine().charAt(0)) - 97;
-                    int yHead = Integer.parseInt(reader.readLine());
-                    System.out.print("Input a stern coordinates in format (Letter + number) ");
-                    int xStern = Character.toLowerCase(reader.readLine().charAt(0)) - 97;
-                    int yStern = Integer.parseInt(reader.readLine());
-                    try {
-                        Ship ship = shipFactory.createShip(i, xHead, yHead, xStern, yStern);
-                        fieldCreator.setShip(personField, ship);
-                        fieldCreator.printField(personField);
-                    } catch (IllegalArgumentException e) {
-                        System.err.println(e.getMessage());
-                        j++;
-                    }
-                }
-
-            }*/
-            Ship ship = shipFactory.createShip(2, Character.toLowerCase('a') - 97, 1, "s");
-            Ship ship2 = shipFactory.createShip(1, Character.toLowerCase('e') - 97, 3, "e");
-            fieldCreator.setShip(personField, ship);
-            fieldCreator.setShip(personField, ship2);
-            shipPool.add(ship);
-            shipPool.add(ship2);
-            fieldCreator.printField(personField);
-
-
-            while (!isGameOver(personField)) {
-                System.out.println("input coordinates to Fire in format (letter + number):");
-                int xHead;
-                int yHead;
-                try {
-                    xHead = Character.toLowerCase(reader.readLine().charAt(0)) - 97;
-                    yHead = Integer.parseInt(reader.readLine());
-                } catch (NumberFormatException e){
+        System.out.println("Do you want to set ships yourself? y or n");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            while (true) {
+                String s = reader.readLine();
+                if (s.equalsIgnoreCase("y")) {
+                    personField = person.manualSetShips();
+                    printField(personField);
+                    break;
+                } else if (s.equalsIgnoreCase("n")) {
+                    personField = person.autoSetShips();
+                    printField(personField);
+                    break;
+                } else {
                     continue;
                 }
-                fire(computerField, personField, computerShipPool, xHead, yHead);
-                fieldCreator.printField(personField);
             }
-            fieldCreator.printField(personField);
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        try {
+            ArrayList<Ship> computerShipPool = computer.getShipPool();
+            ArrayList<Ship> personShipPool = person.getShipPool();
+
+            startBattle(computerField, personField, computerShipPool, personShipPool,reader);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private boolean fire(String[][] fieldComputer, String[][] personField, ArrayList<Ship> shipPool, int x, int y) {
-        try {
-            coordinateCheck(x, y);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Coordinates is out of range!");
-            return true;
-        }
-        boolean fireFlag = false;
-        Ship ship = null;
+    private void startBattle(String[][] computerField, String[][] personField,
+                             ArrayList<Ship> computerShipPool, ArrayList<Ship> personShipPool,
+                             BufferedReader reader) throws IOException {
+        boolean turn = true;
+        while (!isGameOver(personField) || !isGameOver(computerField)) {
+                System.out.println("input coordinates to Fire in format (letter + number):");
+                int xHead;
+                int yHead;
 
-
-        for (Ship aShipPool : shipPool) {
-            ArrayList<String> coordinates = aShipPool.getCoordinates();
-            for (String coordinate : coordinates) {
-                String[] split = coordinate.split(" ");
-                if (split[0].equals(String.valueOf(x)) && split[1].equals(String.valueOf(y))) {
-                    fireFlag = true;
-                    ship = aShipPool;
-                    break;
+                while (turn) {
+                    try {
+                        xHead = Character.toLowerCase(reader.readLine().charAt(0)) - 97;
+                        yHead = Integer.parseInt(reader.readLine());
+                        turn = Person.fire(computerField, personField, computerShipPool, xHead, yHead);
+                        printField(personField);
+                    } catch (NumberFormatException e) {
+                        continue;
+                    }
                 }
+                while (!turn) {
+                    turn = !Computer.fire(personField, computerField, personShipPool);
+                    printField(personField);
+                }
+
             }
-        }
-        if (fireFlag == true) {
-            return markCoordinate(fieldComputer, personField, x , y, ship);
-        } else {
-            if (fieldComputer[x][y].equals("[0]")) {
-                System.out.println("This coordinates were already fired");
-                return true;
-            } else if (fieldComputer[x][y].equals("[ ]")) {
-                System.out.println("Miss");
-                personField[x][22 + y] = "[0]";
-                fieldComputer[x][y] = "[0]";
-                return false;
-            }
-        }
-        return false;
+        printField(personField);
     }
 
-    private boolean markCoordinate(String[][] computerField, String[][] personField, int x, int y, Ship ship) {
+    private String[][] autoSet() {
+        Computer computer = new Computer();
+        return computer.autoSetShips();
+    }
+
+    public static boolean markCoordinate(String[][] computerField, String[][] personField, int x, int y, Ship ship) {
 
         if (computerField[x][y].equals("[X]")) {
             personField[x][22 + y] = "[*]";
@@ -165,13 +138,13 @@ public class BattleShipService {
         return true;
     }
 
-    private void coordinateCheck(int x, int y) {
+    public static void coordinateCheck(int x, int y) {
         if (x < 0 || y < 0 || x > 10 || y > 10) {
             throw new IllegalArgumentException("Bad coordinates!");
         }
     }
 
-    private boolean isGameOver(String[][] field) {
+    private static boolean isGameOver(String[][] field) {
         boolean winFlag = true;
         for (int i = 0; i < field.length - 1; i++) {
             for (int j = 0; j < field[i].length; j++) {
@@ -183,13 +156,13 @@ public class BattleShipService {
         return winFlag;
     }
 
-    private void remake() {
+    private static void remake() {
         String decision;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             decision = reader.readLine();
             if (decision.equalsIgnoreCase("y")) {
                 BattleShipService battleShipService = new BattleShipService();
-                battleShipService.start();
+                battleShipService.startPreparation();
             } else if (decision.equalsIgnoreCase("n")) {
                 System.exit(1);
             } else {

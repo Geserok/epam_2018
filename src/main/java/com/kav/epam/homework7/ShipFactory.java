@@ -38,7 +38,7 @@ public class ShipFactory {
             }
         } else if (direction.equalsIgnoreCase("e")) {
             for (int i = 0; i < size; i++) {
-                coordinateCheck(xCoordinateShipHead + i);
+                coordinateCheck(yCoordinateShipHead + i);
             }
         }
     }
