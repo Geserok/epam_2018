@@ -54,23 +54,23 @@ public abstract class Ship {
 
     public ArrayList<String> getCoordinates(){
         ArrayList<String> coordinates = new ArrayList<>();
-        coordinates.add(String.valueOf(xCoordinateShipHead) + yCoordinateShipHead);
+        coordinates.add(String.valueOf(xCoordinateShipHead) + " " + yCoordinateShipHead);
 
         if (direction.equalsIgnoreCase("n")) {
             for (int i = 0; i < size; i++) {
-                coordinates.add(String.valueOf(xCoordinateShipHead - i) + yCoordinateShipHead);
+                coordinates.add(String.valueOf(xCoordinateShipHead - i) + " " + yCoordinateShipHead);
             }
         } else if (direction.equalsIgnoreCase("s")) {
             for (int i = 0; i < size; i++) {
-                coordinates.add(String.valueOf(xCoordinateShipHead + i) + yCoordinateShipHead);
+                coordinates.add(String.valueOf(xCoordinateShipHead + i) + " " + yCoordinateShipHead);
             }
         } else if (direction.equalsIgnoreCase("w")) {
             for (int i = 0; i < size; i++) {
-                coordinates.add(String.valueOf(xCoordinateShipHead) + String.valueOf(yCoordinateShipHead - i));
+                coordinates.add(String.valueOf(xCoordinateShipHead) + " " + String.valueOf(yCoordinateShipHead - i));
             }
         } else if (direction.equalsIgnoreCase("e")) {
             for (int i = 0; i < size; i++) {
-                coordinates.add(String.valueOf(xCoordinateShipHead) + String.valueOf(yCoordinateShipHead + i));
+                coordinates.add(String.valueOf(xCoordinateShipHead) + " " + String.valueOf(yCoordinateShipHead + i));
             }
         }
         return coordinates;

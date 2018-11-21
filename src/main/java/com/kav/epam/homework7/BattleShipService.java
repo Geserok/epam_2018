@@ -17,11 +17,11 @@ public class BattleShipService {
         ShipFactory shipFactory = new ShipFactory();
 
         FieldCreator fieldCreator = new FieldCreator();
-        String[][] strings = fieldCreator.create();
+        String[][] personField = fieldCreator.create();
         Computer computer = new Computer();
 
         String[][] computerField = computer.setShips();
-        fieldCreator.printField(strings);
+        fieldCreator.printField(personField);
 
         ArrayList<Ship> shipPool = new ArrayList<>();
         ArrayList<Ship> computerShipPool = computer.getComputerShipPool();
@@ -37,8 +37,8 @@ public class BattleShipService {
                     int yStern = Integer.parseInt(reader.readLine());
                     try {
                         Ship ship = shipFactory.createShip(i, xHead, yHead, xStern, yStern);
-                        fieldCreator.setShip(strings, ship);
-                        fieldCreator.printField(strings);
+                        fieldCreator.setShip(personField, ship);
+                        fieldCreator.printField(personField);
                     } catch (IllegalArgumentException e) {
                         System.err.println(e.getMessage());
                         j++;
@@ -48,34 +48,39 @@ public class BattleShipService {
             }*/
             Ship ship = shipFactory.createShip(2, Character.toLowerCase('a') - 97, 1, "s");
             Ship ship2 = shipFactory.createShip(1, Character.toLowerCase('e') - 97, 3, "e");
-            fieldCreator.setShip(strings, ship);
-            fieldCreator.setShip(strings, ship2);
+            fieldCreator.setShip(personField, ship);
+            fieldCreator.setShip(personField, ship2);
             shipPool.add(ship);
             shipPool.add(ship2);
-            fieldCreator.printField(strings);
+            fieldCreator.printField(personField);
 
 
-            while (!isGameOver(strings)) {
+            while (!isGameOver(personField)) {
                 System.out.println("input coordinates to Fire in format (letter + number):");
-                int xHead = Character.toLowerCase(reader.readLine().charAt(0)) - 97;
-                int yHead = Integer.parseInt(reader.readLine());
-                fire(computerField, computerShipPool, xHead, yHead);
-                fieldCreator.printField(strings);
+                int xHead;
+                int yHead;
+                try {
+                    xHead = Character.toLowerCase(reader.readLine().charAt(0)) - 97;
+                    yHead = Integer.parseInt(reader.readLine());
+                } catch (NumberFormatException e){
+                    continue;
+                }
+                fire(computerField, personField, computerShipPool, xHead, yHead);
+                fieldCreator.printField(personField);
             }
-            fieldCreator.printField(strings);
+            fieldCreator.printField(personField);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private boolean fire(String[][] field, ArrayList<Ship> shipPool, int x, int y) {
+    private boolean fire(String[][] fieldComputer, String[][] personField, ArrayList<Ship> shipPool, int x, int y) {
         try {
             coordinateCheck(x, y);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Coordinates is out of range!");
             return true;
         }
-        y = y;
         boolean fireFlag = false;
         Ship ship = null;
 
@@ -83,76 +88,85 @@ public class BattleShipService {
         for (Ship aShipPool : shipPool) {
             ArrayList<String> coordinates = aShipPool.getCoordinates();
             for (String coordinate : coordinates) {
-                if (coordinate.equals(String.valueOf(x) + y)) {
+                String[] split = coordinate.split(" ");
+                if (split[0].equals(String.valueOf(x)) && split[1].equals(String.valueOf(y))) {
                     fireFlag = true;
                     ship = aShipPool;
                     break;
                 }
             }
         }
-
         if (fireFlag == true) {
-            if (field[x][y].equals("[X]")) {
-                field[x][y] = "[*]";
-                ship.removeLife();
-                if (ship.lives > 0) {
-                    System.out.println("Hit");
-                    return true;
-                } else {
-                    if (isGameOver(field)){
-                        System.out.println("Game is over! Do you want to remake? Press y or n");
-                        remake();
-                    }
-                    System.out.println("Kill");
-                    ArrayList<String> coordinates = ship.getCoordinates();
+            return markCoordinate(fieldComputer, personField, x , y, ship);
+        } else {
+            if (fieldComputer[x][y].equals("[0]")) {
+                System.out.println("This coordinates were already fired");
+                return true;
+            } else if (fieldComputer[x][y].equals("[ ]")) {
+                System.out.println("Miss");
+                personField[x][22 + y] = "[0]";
+                fieldComputer[x][y] = "[0]";
+                return false;
+            }
+        }
+        return false;
+    }
 
-                    for (String coordinate : coordinates) {
-                        for (int i = Integer.parseInt(String.valueOf(
-                                coordinate.toCharArray()[0])) - 1; i < Integer.parseInt(
-                                String.valueOf(coordinate.toCharArray()[0])) + 2; i++) {
-                            for (int j = Integer.parseInt(String.valueOf(coordinate.toCharArray()[1])) - 1;
-                                 j < Integer.parseInt(String.valueOf(coordinate.toCharArray()[1])) + 2; j++) {
-                                try {
-                                    if (j > 0 && j < 10) {
-                                        field[i][j] = "[0]";
-                                    }
-                                } catch (ArrayIndexOutOfBoundsException e) {
+    private boolean markCoordinate(String[][] computerField, String[][] personField, int x, int y, Ship ship) {
 
+        if (computerField[x][y].equals("[X]")) {
+            personField[x][22 + y] = "[*]";
+            computerField[x][y] = "[*]";
+            ship.removeLife();
+            if (ship.lives > 0) {
+                System.out.println("Hit");
+                return true;
+            } else {
+                if (isGameOver(computerField)) {
+                    System.out.println("Game is over! Do you want to remake? Press y or n");
+                    remake();
+                }
+                System.out.println("Kill");
+                ArrayList<String> coordinates = ship.getCoordinates();
+
+                for (String coordinate : coordinates) {
+                    String[] split = coordinate.split(" ");
+                    for (int i = Integer.parseInt(split[0]) - 1; i < Integer.parseInt(
+                            split[0]) + 2; i++) {
+                        for (int j = Integer.parseInt(split[1]) - 1;
+                             j < Integer.parseInt(split[1]) + 2; j++) {
+                            try {
+                                if (j > 0 && j <= 10) {
+                                    personField[i][j + 22] = "[0]";
+                                    computerField[i][j] = "[0]";
                                 }
-
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                continue;
                             }
                         }
                     }
-                    for (String coordinate : coordinates) {
-                        try {
-                            field[Integer.parseInt(String.valueOf(coordinate.toCharArray()[0]))]
-                                    [Integer.parseInt(String.valueOf(coordinate.toCharArray()[1]))] = "[*]";
-                        } catch (ArrayIndexOutOfBoundsException e) {
-
-                        }
-                    }
-                    return true;
                 }
-            } else if (field[x][y].equals("[*]")) {
-                System.out.println("This coordinates were already fired");
+                for (String coordinate : coordinates) {
+                    String[] split = coordinate.split(" ");
+                    try {
+                        personField[Integer.parseInt(split[0])]
+                                [22 + Integer.parseInt(split[1])] = "[*]";
+                        computerField[Integer.parseInt(split[0])]
+                                [Integer.parseInt(split[1])] = "[*]";
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        continue;
+                    }
+                }
                 return true;
             }
-        } else {
-            if (field[x][y].equals("[0]")) {
-                System.out.println("This coordinates were already fired");
-                return true;
-            } else if (field[x][y].equals("[ ]")) {
-                System.out.println("Miss");
-                field[x][y] = "[0]";
-                return false;
-            }
-
+        } else if (computerField[x][y].equals("[*]")) {
+            System.out.println("This coordinates were already fired");
         }
-        return fireFlag;
+        return true;
     }
 
-    private void coordinateCheck(int x, int y){
-        if (x < 0 || y < 0 || x > 10 || y > 10){
+    private void coordinateCheck(int x, int y) {
+        if (x < 0 || y < 0 || x > 10 || y > 10) {
             throw new IllegalArgumentException("Bad coordinates!");
         }
     }
@@ -171,12 +185,12 @@ public class BattleShipService {
 
     private void remake() {
         String decision;
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))){
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             decision = reader.readLine();
             if (decision.equalsIgnoreCase("y")) {
                 BattleShipService battleShipService = new BattleShipService();
                 battleShipService.start();
-            } else if (decision.equalsIgnoreCase("n")){
+            } else if (decision.equalsIgnoreCase("n")) {
                 System.exit(1);
             } else {
                 System.out.println("Uncorrected insert");
