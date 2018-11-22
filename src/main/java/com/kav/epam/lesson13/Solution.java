@@ -1,9 +1,5 @@
 package com.kav.epam.lesson13;
 
-import com.sun.org.apache.xalan.internal.utils.FeatureManager;
-
-import java.util.concurrent.*;
-
 /**
  * Created by zstudent on 16/11/2018.
  */

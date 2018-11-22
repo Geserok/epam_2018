@@ -1,4 +1,4 @@
-package com.kav.epam.homework7;
+package com.kav.epam.homework7.battleShips;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,7 +20,7 @@ public class ShipTest {
     @Test
     public void removeLife() {
         ship.removeLife();
-        Assert.assertEquals(0, ship.lives);
+        assertEquals(0, ship.lives);
     }
 
     @Test

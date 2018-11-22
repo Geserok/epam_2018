@@ -1,6 +1,5 @@
-package com.kav.epam.homework7;
+package com.kav.epam.homework7.battleShips;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,24 +17,24 @@ public class ShipFactoryTest {
     @Test
     public void createShip1() {
         Ship ship = shipFactory.createShip(1, 1, 1, "e");
-        Assert.assertEquals(1, ship.size);
+        assertEquals(1, ship.size);
     }
 
     @Test
     public void createShip2() {
         Ship ship = shipFactory.createShip(2, 1, 1, "e");
-        Assert.assertEquals(2, ship.size);
+        assertEquals(2, ship.size);
     }
 
     @Test
     public void createShip3() {
         Ship ship = shipFactory.createShip(3, 1, 1, "e");
-        Assert.assertEquals(3, ship.size);
+        assertEquals(3, ship.size);
     }
 
     @Test
     public void createShip4() {
         Ship ship = shipFactory.createShip(4, 1, 1, "e");
-        Assert.assertEquals(4, ship.size);
+        assertEquals(4, ship.size);
     }
 }

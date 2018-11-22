@@ -1,12 +1,9 @@
-package com.kav.epam.homework7;
+package com.kav.epam.homework7.battleShips;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
-
-import static com.kav.epam.homework7.FieldCreator.printField;
 
 /**
  * Person
@@ -55,14 +52,14 @@ public class Person extends Player {
                         Ship ship = shipFactory.createShip(i, xHead, yHead, direct);
                         fieldCreator.setShip(personField, ship);
                         shipPool.add(ship);
-                        printField(personField);
+                        FieldCreator.printField(personField);
                     } catch (IllegalArgumentException | IOException e) {
                         System.err.println(e.getMessage());
                         j++;
                     }
                 }
             }
-            printField(personField);
+            FieldCreator.printField(personField);
         } catch (IOException e) {
             e.printStackTrace();
         }

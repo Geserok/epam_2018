@@ -1,4 +1,4 @@
-package com.kav.epam.lesson14;
+package com.kav.epam.homework8.casino;
 
 import java.util.concurrent.Callable;
 

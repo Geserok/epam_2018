@@ -1,4 +1,4 @@
-package com.kav.epam.homework7;
+package com.kav.epam.homework7.battleShips;
 
 import java.util.ArrayList;
 

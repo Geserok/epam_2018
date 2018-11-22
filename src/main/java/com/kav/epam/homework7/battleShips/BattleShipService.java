@@ -1,11 +1,11 @@
-package com.kav.epam.homework7;
+package com.kav.epam.homework7.battleShips;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import static com.kav.epam.homework7.FieldCreator.printField;
+import static com.kav.epam.homework7.battleShips.FieldCreator.printField;
 
 /**
  * BattleShip Service

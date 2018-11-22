@@ -1,4 +1,4 @@
-package com.kav.epam.lesson14;
+package com.kav.epam.homework8.casino;
 
 import java.math.BigDecimal;
 
@@ -12,13 +12,13 @@ public class BankAccount {
         this.cashAccount = cashAccount;
     }
 
-    private void deposit(BigDecimal cash){
-        cashAccount = cashAccount.add(cash);
+    public void deposit(BigDecimal cash){
+        setCashAccount(cashAccount.add(cash));
     }
 
-    private void subs(BigDecimal cash){
+    public void subs(BigDecimal cash){
         if (cashAccount.compareTo(cash) > 0){
-            cashAccount.subtract(cash);
+            setCashAccount(cashAccount.subtract(cash));
         }
     }
 

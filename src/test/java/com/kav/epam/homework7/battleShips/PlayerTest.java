@@ -1,4 +1,4 @@
-package com.kav.epam.homework7;
+package com.kav.epam.homework7.battleShips;
 
 import com.sun.org.apache.xpath.internal.operations.String;
 import org.junit.Assert;
