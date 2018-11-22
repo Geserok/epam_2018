@@ -7,14 +7,23 @@ import java.util.ArrayList;
 
 import static com.kav.epam.homework7.FieldCreator.printField;
 
+/**
+ * BattleShip Service
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
+ */
 public class BattleShipService {
-
 
     public static void main(String[] args) {
         BattleShipService battleShipService = new BattleShipService();
         battleShipService.startPreparation();
     }
 
+    /**
+     * Method which start prepare part
+     */
     public void startPreparation() {
         Computer computer = new Computer();
         Person person = new Person();
@@ -46,47 +55,62 @@ public class BattleShipService {
             ArrayList<Ship> computerShipPool = computer.getShipPool();
             ArrayList<Ship> personShipPool = person.getShipPool();
 
-            startBattle(computerField, personField, computerShipPool, personShipPool,reader);
+            startBattle(computerField, personField, computerShipPool, personShipPool, reader);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Method which start the battle part
+     *
+     * @param computerField
+     * @param personField
+     * @param computerShipPool
+     * @param personShipPool
+     * @param reader
+     * @throws IOException
+     */
     private void startBattle(String[][] computerField, String[][] personField,
                              ArrayList<Ship> computerShipPool, ArrayList<Ship> personShipPool,
                              BufferedReader reader) throws IOException {
         boolean turn = true;
         while (!isGameOver(personField) || !isGameOver(computerField)) {
-                System.out.println("input coordinates to Fire in format (letter + number):");
-                int xHead;
-                int yHead;
+            System.out.println("input coordinates to Fire in format (letter + number):");
+            int xHead;
+            int yHead;
 
-                while (turn) {
-                    try {
-                        xHead = Character.toLowerCase(reader.readLine().charAt(0)) - 97;
-                        yHead = Integer.parseInt(reader.readLine());
-                        turn = Person.fire(computerField, personField, computerShipPool, xHead, yHead);
-                        printField(personField);
-                    } catch (NumberFormatException e) {
-                        continue;
-                    }
-                }
-                while (!turn) {
-                    turn = !Computer.fire(personField, computerField, personShipPool);
+            while (turn) {
+                try {
+                    xHead = Character.toLowerCase(reader.readLine().charAt(0)) - 97;
+                    yHead = Integer.parseInt(reader.readLine());
+                    turn = Person.fire(computerField, personField, computerShipPool, xHead, yHead);
                     printField(personField);
+                } catch (NumberFormatException e) {
+                    continue;
                 }
-
             }
+            while (!turn) {
+                turn = !Computer.fire(personField, computerField, personShipPool);
+                printField(personField);
+            }
+
+        }
         printField(personField);
     }
 
-    private String[][] autoSet() {
-        Computer computer = new Computer();
-        return computer.autoSetShips();
-    }
-
-    public static boolean markCoordinate(String[][] computerField, String[][] personField, int x, int y, Ship ship) {
-
+    /**
+     * Method which marks ceils in field
+     *
+     * @param computerField
+     * @param personField
+     * @param x
+     * @param y
+     * @param ship
+     * @return
+     */
+    public static boolean markCoordinate(String[][] computerField,
+                                         String[][] personField, int x, int y, Ship ship) {
         if (computerField[x][y].equals("[X]")) {
             personField[x][22 + y] = "[*]";
             computerField[x][y] = "[*]";
@@ -138,12 +162,24 @@ public class BattleShipService {
         return true;
     }
 
+    /**
+     * Method which check correctness of input coordinates
+     *
+     * @param x
+     * @param y
+     */
     public static void coordinateCheck(int x, int y) {
         if (x < 0 || y < 0 || x > 10 || y > 10) {
             throw new IllegalArgumentException("Bad coordinates!");
         }
     }
 
+    /**
+     * Method which check game over
+     *
+     * @param field
+     * @return
+     */
     private static boolean isGameOver(String[][] field) {
         boolean winFlag = true;
         for (int i = 0; i < field.length - 1; i++) {
@@ -156,6 +192,9 @@ public class BattleShipService {
         return winFlag;
     }
 
+    /**
+     * Method which do remake of game
+     */
     private static void remake() {
         String decision;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {

@@ -3,9 +3,20 @@ package com.kav.epam.homework7;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Computer
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
+ */
 public class Computer extends Player{
     ArrayList<Ship> computerShipPool = new ArrayList<>();
 
+    /**
+     * Method which auto set ships
+     * @return
+     */
     @Override
     public String[][] autoSetShips() {
         Player player = new Player();
@@ -18,7 +29,15 @@ public class Computer extends Player{
         return computerShipPool;
     }
 
-    public static boolean fire(String[][] enemyField, String[][] personField, ArrayList<Ship> enemyShipPool) {
+    /**
+     * Method which modeling computer attack
+     * @param enemyField
+     * @param personField
+     * @param enemyShipPool
+     * @return
+     */
+    public static boolean fire(String[][] enemyField,
+                               String[][] personField, ArrayList<Ship> enemyShipPool) {
         Random random = new Random();
         int x;
         int y;

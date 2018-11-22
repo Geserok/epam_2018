@@ -2,6 +2,13 @@ package com.kav.epam.homework7;
 
 import java.util.ArrayList;
 
+/**
+ * Ship
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
+ */
 public abstract class Ship {
     int xCoordinateShipHead;
     int yCoordinateShipHead;
@@ -16,42 +23,21 @@ public abstract class Ship {
         this.lives = this.size;
     }
 
+    /**
+     * Method which remove one life of Ship
+     */
     public void removeLife() {
         this.lives = this.lives - 1;
-    }
-
-    public void setxCoordinateShipHead(int xCoordinateShipHead) {
-        this.xCoordinateShipHead = xCoordinateShipHead;
-    }
-
-    public void setyCoordinateShipHead(int yCoordinateShipHead) {
-        this.yCoordinateShipHead = yCoordinateShipHead;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int isState() {
-        return lives;
-    }
-
-    public int getxCoordinateShipHead() {
-        return xCoordinateShipHead;
-    }
-
-    public int getyCoordinateShipHead() {
-        return yCoordinateShipHead;
-    }
-
-    public int getSize() {
-        return size;
     }
 
     public String getDirection() {
         return direction;
     }
 
+    /**
+     * Method which return list of coordinates of Ship
+     * @return
+     */
     public ArrayList<String> getCoordinates(){
         ArrayList<String> coordinates = new ArrayList<>();
         coordinates.add(String.valueOf(xCoordinateShipHead) + " " + yCoordinateShipHead);

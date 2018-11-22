@@ -3,9 +3,21 @@ package com.kav.epam.homework7;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Player
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
+ */
 public class Player {
     ArrayList<Ship> shipPool = new ArrayList<>();
 
+    /**
+     * Method which auto set ships
+     *
+     * @return
+     */
     public String[][] autoSetShips() {
 
         ShipFactory shipFactory = new ShipFactory();
@@ -14,10 +26,10 @@ public class Player {
         for (int i = 1; i < 5; i++) {
             for (int j = 5 - i; j > 0; j--) {
                 Random random = new Random();
-
                 int xHead = random.nextInt(10);
                 int yHead = 1 + random.nextInt(10);
                 String direction = null;
+
                 switch (random.nextInt(4)) {
                     case 0:
                         direction = "n";
@@ -46,10 +58,25 @@ public class Player {
         return compField;
     }
 
+    /**
+     * Method which manual set ships
+     *
+     * @return
+     */
     public String[][] manualSetShips() {
         return new String[11][33];
     }
 
+    /**
+     * Method which modeling attack
+     *
+     * @param enemyField
+     * @param personField
+     * @param enemyShipPool
+     * @param x
+     * @param y
+     * @return
+     */
     public static boolean fire(String[][] enemyField, String[][] personField,
                                ArrayList<Ship> enemyShipPool, int x, int y) {
         try {
@@ -60,7 +87,6 @@ public class Player {
         }
         boolean fireFlag = false;
         Ship ship = null;
-
 
         for (Ship aShipPool : enemyShipPool) {
             ArrayList<String> coordinates = aShipPool.getCoordinates();

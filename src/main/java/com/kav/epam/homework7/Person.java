@@ -8,9 +8,21 @@ import java.util.ArrayList;
 
 import static com.kav.epam.homework7.FieldCreator.printField;
 
-public class Person extends Player{
+/**
+ * Person
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
+ */
+public class Person extends Player {
     ArrayList<Ship> personShipPool = new ArrayList<>();
 
+    /**
+     * Method which auto set person ships
+     *
+     * @return
+     */
     @Override
     public String[][] autoSetShips() {
         Player player = new Player();
@@ -19,6 +31,11 @@ public class Person extends Player{
         return strings;
     }
 
+    /**
+     * Method which manual set person ships
+     *
+     * @return
+     */
     @Override
     public String[][] manualSetShips() {
         ShipFactory shipFactory = new ShipFactory();

@@ -1,8 +1,23 @@
 package com.kav.epam.homework7;
 
+/**
+ * ShipFactory Service
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
+ */
 public class ShipFactory {
     private Ship ship = null;
 
+    /**
+     * Method which create a ship
+     * @param size
+     * @param xCoordinateShipHead
+     * @param yCoordinateShipHead
+     * @param direction
+     * @return
+     */
     public Ship createShip(int size, int xCoordinateShipHead, int yCoordinateShipHead, String direction) {
 
         coordinatesCheck(size, xCoordinateShipHead, yCoordinateShipHead, direction);
@@ -21,6 +36,13 @@ public class ShipFactory {
         return ship;
     }
 
+    /**
+     * Method which check coordinates of the ship
+     * @param size
+     * @param xCoordinateShipHead
+     * @param yCoordinateShipHead
+     * @param direction
+     */
     private static void coordinatesCheck(int size, int xCoordinateShipHead, int yCoordinateShipHead, String direction) {
         coordinateCheck(xCoordinateShipHead);
         coordinateCheck(yCoordinateShipHead);
@@ -43,6 +65,10 @@ public class ShipFactory {
         }
     }
 
+    /**
+     * Method which check correctness of input coordinates
+     * @param coordinate
+     */
     private static void coordinateCheck(int coordinate) {
         if (coordinate < 0 || coordinate > 10) {
             throw new IllegalArgumentException("Wrong coordinate!");

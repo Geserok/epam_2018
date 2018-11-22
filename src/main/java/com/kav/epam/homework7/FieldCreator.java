@@ -1,6 +1,19 @@
 package com.kav.epam.homework7;
 
+/**
+ * Field creator for BattleShip
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
+ */
 public class FieldCreator {
+
+    /**
+     * Method which create a field for game
+     *
+     * @return field
+     */
     public String[][] create() {
         String[][] result = new String[11][33];
         fieldFill(result);
@@ -16,35 +29,38 @@ public class FieldCreator {
         return result;
     }
 
-    public String[][] createComputerField() {
-        String[][] computerField = new String[11][11];
-        fieldFill(computerField);
-        return computerField;
-    }
-
-    private void fieldFill(String[][] computerField) {
-        for (int i = 0; i < computerField.length; i++) {
-            for (int j = 0; j < computerField[i].length; j++) {
-                computerField[i][j] = "  ";
+    /**
+     * Method which fill cell into field
+     *
+     * @param field
+     */
+    private void fieldFill(String[][] field) {
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length; j++) {
+                field[i][j] = "  ";
             }
         }
         for (int i = 0; i < 11; i++) {
             for (int j = 0; j < 11; j++) {
                 if (j == 0) {
-                    computerField[i][j] = String.valueOf((char) (i + 65));
+                    field[i][j] = String.valueOf((char) (i + 65));
                 } else {
-                    computerField[i][j] = "[ ]";
+                    field[i][j] = "[ ]";
                 }
             }
         }
     }
 
-
-    public static void printField(String[][] arr) {
+    /**
+     * Method which print fiedl
+     *
+     * @param field
+     */
+    public static void printField(String[][] field) {
         System.out.print("  1  2  3  4  5  6  7  8  9  10");
         System.out.print("                      ");
         System.out.println("  1  2  3  4  5  6  7  8  9  10");
-        for (String[] strings : arr) {
+        for (String[] strings : field) {
             for (String string : strings) {
                 System.out.print(string);
             }
@@ -52,6 +68,12 @@ public class FieldCreator {
         }
     }
 
+    /**
+     * Method which set ship on the field
+     *
+     * @param field
+     * @param ship
+     */
     public void setShip(String[][] field, Ship ship) {
         nearlyShipCheck(field, ship);
         int x = ship.xCoordinateShipHead;
@@ -74,9 +96,14 @@ public class FieldCreator {
                 field[x][i] = "[X]";
             }
         }
-
     }
 
+    /**
+     * Method which check cells for close standing ship
+     *
+     * @param field
+     * @param ship
+     */
     private static void nearlyShipCheck(String[][] field, Ship ship) {
         String direction = ship.getDirection();
         int size = ship.size;
@@ -122,27 +149,20 @@ public class FieldCreator {
         }
     }
 
-
-    private static void markCoordinate(String[][] field, Ship ship, int i, int j) {
+    /**
+     * Method which check cell for ship
+     *
+     * @param field
+     * @param i
+     * @param j
+     */
+    private static void stringCheck(String[][] field, int i, int j) {
         try {
-            if (field[i + ship.xCoordinateShipHead][j].equals("[ ]") ||
-                    field[i + ship.xCoordinateShipHead][j].equals("[*]") ||
-                    field[i + ship.xCoordinateShipHead][j].equals("[0]")) {
-                field[i][j] = "[*]";
-            }
-        } catch (IndexOutOfBoundsException e) {
-            return;
-        }
-    }
-
-    private static void stringCheck(String[][] field, int i, int j){
-        try{
             if (field[i][j].equalsIgnoreCase("[X]")) {
                 throw new IllegalArgumentException("Wrong! Another ship too close");
             }
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
 
         }
     }
-
 }
