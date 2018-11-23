@@ -31,6 +31,8 @@ public class BattleShipService {
         String[][] computerField = computer.autoSetShips();
         String[][] personField = new String[11][33];
 
+
+
         System.out.println("Do you want to set ships yourself? y or n");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
@@ -48,18 +50,15 @@ public class BattleShipService {
                     continue;
                 }
             }
+            ArrayList<Ship> computerShipPool = computer.getShipPool();
+            ArrayList<Ship> personShipPool = person.getShipPool();
+            startBattle(computerField, personField, computerShipPool, personShipPool, reader);
         } catch (IOException e) {
             e.getMessage();
         }
-        try {
-            ArrayList<Ship> computerShipPool = computer.getShipPool();
-            ArrayList<Ship> personShipPool = person.getShipPool();
 
-            startBattle(computerField, personField, computerShipPool, personShipPool, reader);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-    }
+
 
     /**
      * Method which start the battle part
@@ -102,24 +101,24 @@ public class BattleShipService {
     /**
      * Method which marks ceils in field
      *
-     * @param computerField
+     * @param enemyField
      * @param personField
      * @param x
      * @param y
      * @param ship
      * @return
      */
-    public static boolean markCoordinate(String[][] computerField,
+    public static boolean markCoordinate(String[][] enemyField,
                                          String[][] personField, int x, int y, Ship ship) {
-        if (computerField[x][y].equals("[X]")) {
+        if (enemyField[x][y].equals("[X]")) {
             personField[x][22 + y] = "[*]";
-            computerField[x][y] = "[*]";
+            enemyField[x][y] = "[*]";
             ship.removeLife();
             if (ship.lives > 0) {
                 System.out.println("Hit");
                 return true;
             } else {
-                if (isGameOver(computerField)) {
+                if (isGameOver(enemyField)) {
                     System.out.println("Game is over! Do you want to remake? Press y or n");
                     remake();
                 }
@@ -135,7 +134,7 @@ public class BattleShipService {
                             try {
                                 if (j > 0 && j <= 10) {
                                     personField[i][j + 22] = "[0]";
-                                    computerField[i][j] = "[0]";
+                                    enemyField[i][j] = "[0]";
                                 }
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 continue;
@@ -148,7 +147,7 @@ public class BattleShipService {
                     try {
                         personField[Integer.parseInt(split[0])]
                                 [22 + Integer.parseInt(split[1])] = "[*]";
-                        computerField[Integer.parseInt(split[0])]
+                        enemyField[Integer.parseInt(split[0])]
                                 [Integer.parseInt(split[1])] = "[*]";
                     } catch (ArrayIndexOutOfBoundsException e) {
                         continue;
@@ -156,7 +155,7 @@ public class BattleShipService {
                 }
                 return true;
             }
-        } else if (computerField[x][y].equals("[*]")) {
+        } else if (enemyField[x][y].equals("[*]")) {
             System.out.println("This coordinates were already fired");
         }
         return true;

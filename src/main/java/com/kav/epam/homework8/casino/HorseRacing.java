@@ -6,9 +6,12 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.Scanner;
 import java.util.concurrent.*;
-
 /**
- * Created by zstudent on 19/11/2018.
+ * BattleShip Service
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class HorseRacing {
     public static void main(String[] args) {

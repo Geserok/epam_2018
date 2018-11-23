@@ -3,7 +3,11 @@ package com.kav.epam.homework8.casino;
 import java.math.BigDecimal;
 
 /**
- * Created by zstudent on 19/11/2018.
+ * BankAccount
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class BankAccount {
     private BigDecimal cashAccount;

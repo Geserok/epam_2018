@@ -24,7 +24,7 @@ public class Person extends Player {
     public String[][] autoSetShips() {
         Player player = new Player();
         String[][] strings = player.autoSetShips();
-        shipPool = getShipPool();
+        personShipPool = player.getShipPool();
         return strings;
     }
 
