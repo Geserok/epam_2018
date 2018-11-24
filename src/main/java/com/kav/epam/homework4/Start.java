@@ -5,9 +5,9 @@ package com.kav.epam.homework4;
  * @version 1.0
  * @since 1.8
  */
-public class Run {
+public class Start {
     /**
-     * Method which start program to solve 10.41-10.43 from Zlotopolsky
+     * Method which startPreparation program to solve 10.41-10.43 from Zlotopolsky
      */
     public void init() {
         RecursionTaskFirst recursionTaskFirst = new RecursionTaskFirst();

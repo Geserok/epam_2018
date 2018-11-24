@@ -3,13 +3,13 @@ package com.kav.epam.homework8.casino;
 import java.util.concurrent.Callable;
 
 /**
- * Horse
+ * Horse for HorseRacing
  *
  * @author Andrey Kudarenko
  * @version 1.0
  * @since 1.8
  */
-public class Horse implements Callable<Integer>{
+public class Horse implements Callable<Integer> {
     double speed;
     double accelerate;
     String name;
@@ -24,7 +24,7 @@ public class Horse implements Callable<Integer>{
     @Override
     public Integer call() {
         int i = 0;
-        while (1000 > speed * i + (accelerate * Math.pow(i,2))){
+        while (1000 > speed * i + (accelerate * Math.pow(i, 2))) {
             i++;
         }
         return i;

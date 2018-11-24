@@ -4,11 +4,16 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Created by zstudent on 16/11/2018.
+ * LockDemo
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
-public class LockDemo implements Runnable{
-public static int count;
-private static Lock lock = new ReentrantLock();
+public class LockDemo implements Runnable {
+    public static int count;
+    private static Lock lock = new ReentrantLock();
+
     @Override
     public void run() {
         for (int i = 0; i < 1000000; i++) {

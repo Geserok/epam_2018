@@ -1,9 +1,15 @@
 package com.kav.epam.homework3;
 
 /**
- * Created by zstudent on 15/10/2018.
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
-public class Run {
+public class Start {
+
+    /**
+     * Method which initialise solving of tasks 1-5
+     */
     public void init(){
         char[][] a = new char[5][5];
         a[0] = new char[]{'A', 'B', 'C', 'D', 'E'};

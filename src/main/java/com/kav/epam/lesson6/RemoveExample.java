@@ -5,7 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by zstudent on 01/10/2018.
+ * RemoveExample
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class RemoveExample {
     public static void main(String[] args) {

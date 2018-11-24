@@ -1,7 +1,11 @@
 package com.kav.epam.lesson13;
 
 /**
- * Created by zstudent on 16/11/2018.
+ * SimpleThread
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class SimpleThread implements Runnable {
     public int count = 0;

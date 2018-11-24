@@ -26,19 +26,19 @@ public class PlayerTest {
     }
 
     @Test
-    public void autoSetShips() {
+    public void testAutoSetShips() {
         enemyField = computer.autoSetShips();
     }
 
     @Test
-    public void manualSetShips() {
+    public void testManualSetShips() {
         Player player = new Player();
         java.lang.String[][] strings = player.manualSetShips();
         Assert.assertEquals(new String[11][33], strings);
     }
 
     @Test
-    public void fire() {
+    public void testFire() {
         enemyField = computer.autoSetShips();
         for (int i = 0; i < enemyField.length; i++) {
             Arrays.fill(enemyField[i], "[X]");

@@ -18,13 +18,13 @@ public class ShipTest {
     }
 
     @Test
-    public void removeLife() {
+    public void testRemoveLife() {
         ship.removeLife();
         assertEquals(0, ship.lives);
     }
 
     @Test
-    public void getCoordinates() {
+    public void testGetCoordinates() {
         ArrayList<String> coordinates = ship.getCoordinates();
         Assert.assertEquals("1 1", coordinates.get(0));
     }

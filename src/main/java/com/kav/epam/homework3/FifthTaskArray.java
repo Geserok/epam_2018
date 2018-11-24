@@ -6,6 +6,7 @@ package com.kav.epam.homework3;
  * @since 1.8
  */
 public class FifthTaskArray extends ThirdTaskArray {
+
     /**
      * Method which solve task №12.274 from Zlotopolsky
      *

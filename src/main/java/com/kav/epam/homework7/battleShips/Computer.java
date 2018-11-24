@@ -10,11 +10,12 @@ import java.util.Random;
  * @version 1.0
  * @since 1.8
  */
-public class Computer extends Player{
+public class Computer extends Player {
     ArrayList<Ship> computerShipPool = new ArrayList<>();
 
     /**
      * Method which auto set ships
+     *
      * @return
      */
     @Override
@@ -31,10 +32,11 @@ public class Computer extends Player{
 
     /**
      * Method which modeling computer attack
-     * @param enemyField
-     * @param personField
-     * @param enemyShipPool
-     * @return
+     *
+     * @param enemyField    enemy field with ships
+     * @param personField   person field with ships
+     * @param enemyShipPool list of enemy ships
+     * @return true if shoot was accurate
      */
     public static boolean fire(String[][] enemyField,
                                String[][] personField, ArrayList<Ship> enemyShipPool) {
@@ -77,5 +79,4 @@ public class Computer extends Player{
         }
         return false;
     }
-
 }

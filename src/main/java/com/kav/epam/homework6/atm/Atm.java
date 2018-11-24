@@ -1,4 +1,4 @@
-package com.kav.epam.homework6;
+package com.kav.epam.homework6.atm;
 
 import java.math.BigDecimal;
 

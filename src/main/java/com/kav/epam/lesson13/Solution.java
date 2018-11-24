@@ -1,11 +1,20 @@
 package com.kav.epam.lesson13;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 /**
- * Created by zstudent on 16/11/2018.
+ * Solution
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class Solution {
     public static void main(String[] args) {
-   /*     ExecutorService ex = Executors.newCachedThreadPool();
+        ExecutorService ex = Executors.newCachedThreadPool();
         ex.execute(new SimpleThread());
         ex.execute(new SimpleThread());
         ex.shutdown();
@@ -13,7 +22,7 @@ public class Solution {
         ExecutorService ex2 = Executors.newCachedThreadPool();
         Future<Integer> integerFuture = ex2.submit(new CallableThread());
         Future<Integer> integerFuture1 = ex2.submit(new CallableThread());
-        try{
+        try {
             System.out.println("I am already here");
             System.out.println(integerFuture.get());
             System.out.println(integerFuture.isDone());
@@ -32,7 +41,6 @@ public class Solution {
 
         th1.start();
         th2.start();
-        */
 
         AtomicThread atomicThread = new AtomicThread();
         AtomicThread atomicThread1 = new AtomicThread();

@@ -7,7 +7,7 @@ package com.kav.epam.homework4;
  */
 public class Main {
     public static void main(String[] args) {
-        Run run = new Run();
-        run.init();
+        Start start = new Start();
+        start.init();
     }
 }

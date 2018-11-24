@@ -3,7 +3,11 @@ package com.kav.epam.lesson13;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by zstudent on 16/11/2018.
+ * AtomicThread
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class AtomicThread implements Runnable {
     public static AtomicInteger count = new AtomicInteger(0);

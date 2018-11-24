@@ -6,6 +6,7 @@ package com.kav.epam.homework3;
  * @since 1.8
  */
 public class FirstTaskArray {
+
     /**
      * method which solve task №12.270 from Zlotopolsky
      *

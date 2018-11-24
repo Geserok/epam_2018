@@ -1,10 +1,13 @@
 package com.kav.epam.lesson3;
 
 /**
- * Created by zstudent on 21/09/2018.
+ * Animal
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class RussianCat extends Cat {
-
 
     public RussianCat(String name, int weight) {
         this.name = name;

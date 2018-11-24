@@ -52,9 +52,9 @@ public class FieldCreator {
     }
 
     /**
-     * Method which print fiedl
+     * Method which print field
      *
-     * @param field
+     * @param field field which will be printed
      */
     public static void printField(String[][] field) {
         System.out.print("  1  2  3  4  5  6  7  8  9  10");
@@ -71,8 +71,8 @@ public class FieldCreator {
     /**
      * Method which set ship on the field
      *
-     * @param field
-     * @param ship
+     * @param field which takes the ship
+     * @param ship  which will be set
      */
     public void setShip(String[][] field, Ship ship) {
         nearlyShipCheck(field, ship);
@@ -101,8 +101,8 @@ public class FieldCreator {
     /**
      * Method which check cells for close standing ship
      *
-     * @param field
-     * @param ship
+     * @param field which takes the ship
+     * @param ship  which coordinates should be checked
      */
     private static void nearlyShipCheck(String[][] field, Ship ship) {
         String direction = ship.getDirection();
@@ -152,9 +152,9 @@ public class FieldCreator {
     /**
      * Method which check cell for ship
      *
-     * @param field
-     * @param i
-     * @param j
+     * @param field which takes the ship
+     * @param i     the ordinate
+     * @param j     the abscissa
      */
     private static void stringCheck(String[][] field, int i, int j) {
         try {

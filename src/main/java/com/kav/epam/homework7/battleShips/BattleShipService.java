@@ -29,9 +29,7 @@ public class BattleShipService {
         Person person = new Person();
 
         String[][] computerField = computer.autoSetShips();
-        String[][] personField = new String[11][33];
-
-
+        String[][] personField;
 
         System.out.println("Do you want to set ships yourself? y or n");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -46,33 +44,29 @@ public class BattleShipService {
                     personField = person.autoSetShips();
                     printField(personField);
                     break;
-                } else {
-                    continue;
                 }
             }
             ArrayList<Ship> computerShipPool = computer.getShipPool();
             ArrayList<Ship> personShipPool = person.getShipPool();
             startBattle(computerField, personField, computerShipPool, personShipPool, reader);
         } catch (IOException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
-
-        }
-
+    }
 
     /**
      * Method which start the battle part
      *
-     * @param computerField
-     * @param personField
-     * @param computerShipPool
-     * @param personShipPool
-     * @param reader
+     * @param computerField    field with computer's ships
+     * @param personField      field with player's ships
+     * @param computerShipPool list of computer's ships
+     * @param personShipPool   list of person's ships
+     * @param reader           buffered reader
      * @throws IOException
      */
     private void startBattle(String[][] computerField, String[][] personField,
                              ArrayList<Ship> computerShipPool, ArrayList<Ship> personShipPool,
-                             BufferedReader reader) throws IOException {
+                             BufferedReader reader) {
         boolean turn = true;
         while (!isGameOver(personField) || !isGameOver(computerField)) {
             System.out.println("input coordinates to Fire in format (letter + number):");
@@ -87,25 +81,26 @@ public class BattleShipService {
                     printField(personField);
                 } catch (NumberFormatException e) {
                     continue;
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
             while (!turn) {
                 turn = !Computer.fire(personField, computerField, personShipPool);
                 printField(personField);
             }
-
         }
         printField(personField);
     }
 
     /**
-     * Method which marks ceils in field
+     * Method which marks cells in field
      *
-     * @param enemyField
-     * @param personField
-     * @param x
-     * @param y
-     * @param ship
+     * @param enemyField  enemy field
+     * @param personField person's
+     * @param x           x coordinate
+     * @param y           y coordinate
+     * @param ship        ship which coordinates should be marked
      * @return
      */
     public static boolean markCoordinate(String[][] enemyField,
@@ -164,20 +159,21 @@ public class BattleShipService {
     /**
      * Method which check correctness of input coordinates
      *
-     * @param x
-     * @param y
+     * @param x coordinate
+     * @param y coordinate
      */
-    public static void coordinateCheck(int x, int y) {
+    public static boolean coordinateCheck(int x, int y) {
         if (x < 0 || y < 0 || x > 10 || y > 10) {
             throw new IllegalArgumentException("Bad coordinates!");
         }
+        return true;
     }
 
     /**
      * Method which check game over
      *
-     * @param field
-     * @return
+     * @param field which will be checked
+     * @return true if field include alive ships
      */
     private static boolean isGameOver(String[][] field) {
         boolean winFlag = true;

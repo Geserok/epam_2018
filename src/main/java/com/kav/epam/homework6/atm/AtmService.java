@@ -1,4 +1,4 @@
-package com.kav.epam.homework6;
+package com.kav.epam.homework6.atm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,10 @@ import java.util.List;
  * @since 1.8
  */
 public class AtmService {
+    public static void main(String[] args) {
+        AtmService atmService = new AtmService();
+        atmService.start(10, 3);
+    }
 
     /**
      * Start the Atm service
@@ -28,10 +32,5 @@ public class AtmService {
             listAtm.add(new Thread(new Atm(i, quantityOfThreads)));
         }
         listAtm.forEach(Thread::start);
-    }
-
-    public static void main(String[] args) {
-        AtmService atmService = new AtmService();
-        atmService.start(10, 3);
     }
 }

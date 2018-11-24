@@ -1,7 +1,11 @@
 package com.kav.epam.lesson3;
 
 /**
- * Created by zstudent on 21/09/2018.
+ * Animal
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class Animal {
     String name;
@@ -23,7 +27,7 @@ public class Animal {
         this.age = age;
     }
 
-    public void sleep(){
+    public void sleep() {
         System.out.println(this.toString() + " is sleeping");
     }
 }

@@ -1,9 +1,13 @@
 package com.kav.epam.lesson10;
 
 /**
- * Created by zstudent on 08/10/2018.
+ * Cat
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
-public abstract class Cat implements Animal{
+public abstract class Cat implements Animal {
     private String name;
     private String gender;
     private String description;

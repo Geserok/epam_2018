@@ -16,10 +16,9 @@ public class Player {
     /**
      * Method which auto set ships
      *
-     * @return
+     * @return field of ships
      */
     public String[][] autoSetShips() {
-
         ShipFactory shipFactory = new ShipFactory();
         FieldCreator fieldCreator = new FieldCreator();
         String[][] compField = fieldCreator.create();
@@ -61,7 +60,7 @@ public class Player {
     /**
      * Method which manual set ships
      *
-     * @return
+     * @return return field of ships
      */
     public String[][] manualSetShips() {
         return new String[11][33];
@@ -70,11 +69,11 @@ public class Player {
     /**
      * Method which modeling attack
      *
-     * @param enemyField
-     * @param personField
-     * @param enemyShipPool
-     * @param x
-     * @param y
+     * @param enemyField    enemy field of ships
+     * @param personField   person field of ships
+     * @param enemyShipPool list with enemy ships
+     * @param x             ordinate of fire
+     * @param y             abscissa of fire
      * @return
      */
     public static boolean fire(String[][] enemyField, String[][] personField,

@@ -1,7 +1,11 @@
 package com.kav.epam.lesson9;
 
 /**
- * Created by zstudent on 08/10/2018.
+ * Main
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class Main {
     public static void main(String[] args) {

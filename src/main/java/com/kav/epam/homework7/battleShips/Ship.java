@@ -3,7 +3,7 @@ package com.kav.epam.homework7.battleShips;
 import java.util.ArrayList;
 
 /**
- * Ship
+ * Ship for BattleShip
  *
  * @author Andrey Kudarenko
  * @version 1.0
@@ -36,9 +36,10 @@ public abstract class Ship {
 
     /**
      * Method which return list of coordinates of Ship
-     * @return
+     *
+     * @return ArrayList of strings with coordinates
      */
-    public ArrayList<String> getCoordinates(){
+    public ArrayList<String> getCoordinates() {
         ArrayList<String> coordinates = new ArrayList<>();
         coordinates.add(String.valueOf(xCoordinateShipHead) + " " + yCoordinateShipHead);
 

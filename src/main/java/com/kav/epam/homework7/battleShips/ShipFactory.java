@@ -12,10 +12,11 @@ public class ShipFactory {
 
     /**
      * Method which create a ship
-     * @param size
-     * @param xCoordinateShipHead
-     * @param yCoordinateShipHead
-     * @param direction
+     *
+     * @param size                quantity deck of the ship
+     * @param xCoordinateShipHead ordinate of ship head
+     * @param yCoordinateShipHead abscissa of ship head
+     * @param direction           direction of ship
      * @return
      */
     public Ship createShip(int size, int xCoordinateShipHead, int yCoordinateShipHead, String direction) {
@@ -38,10 +39,11 @@ public class ShipFactory {
 
     /**
      * Method which check coordinates of the ship
-     * @param size
-     * @param xCoordinateShipHead
-     * @param yCoordinateShipHead
-     * @param direction
+     *
+     * @param size                quantity deck of the ship
+     * @param xCoordinateShipHead ordinate of ship head
+     * @param yCoordinateShipHead abscissa of ship head
+     * @param direction           direction of ship
      */
     private static void coordinatesCheck(int size, int xCoordinateShipHead, int yCoordinateShipHead, String direction) {
         coordinateCheck(xCoordinateShipHead);
@@ -67,7 +69,8 @@ public class ShipFactory {
 
     /**
      * Method which check correctness of input coordinates
-     * @param coordinate
+     *
+     * @param coordinate coordinate to check
      */
     private static void coordinateCheck(int coordinate) {
         if (coordinate < 0 || coordinate > 10) {

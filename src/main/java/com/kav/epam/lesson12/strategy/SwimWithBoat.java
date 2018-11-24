@@ -1,10 +1,13 @@
 package com.kav.epam.lesson12.strategy;
 
 /**
- * Created by zstudent on 15/10/2018.
+ * SwimWithBoat
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
-public class SwimWithBoat implements SwimBehavior{
-
+public class SwimWithBoat implements SwimBehavior {
 
     @Override
     public void swimable() {

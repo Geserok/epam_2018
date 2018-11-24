@@ -1,7 +1,11 @@
 package com.kav.epam.lesson4;
 
 /**
- * Created by zstudent on 24/09/2018.
+ * Cat
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class Cat implements CatInterface {
 

@@ -3,7 +3,11 @@ package com.kav.epam.lesson7;
 import java.util.List;
 
 /**
- * Created by zstudent on 05/10/2018.
+ * Cat
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public final class Cat {
     private final int age;

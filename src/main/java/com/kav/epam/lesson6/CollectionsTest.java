@@ -5,7 +5,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by zstudent on 01/10/2018.
+ * CollectionsTest
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class CollectionsTest {
     public static void main(String[] args) {
@@ -20,6 +24,7 @@ public class CollectionsTest {
 
         System.out.println(barsik.hashCode());
         System.out.println(cats.contains(barsik));
+
         barsik.setName("barsik");
         System.out.println(barsik.hashCode());
 

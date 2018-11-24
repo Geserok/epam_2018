@@ -6,8 +6,9 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.Scanner;
 import java.util.concurrent.*;
+
 /**
- * BattleShip Service
+ * HorceRacing
  *
  * @author Andrey Kudarenko
  * @version 1.0
@@ -20,8 +21,12 @@ public class HorseRacing {
         horseRacing.start(bankAccount);
     }
 
+    /**
+     * Method which start preparation to race
+     *
+     * @param bankAccount account to gambling
+     */
     public void start(BankAccount bankAccount) {
-
         Horse[] horses = new Horse[5];
         Horse bethany = new Horse("Bethany");
         Horse kitty = new Horse("Kitty");
@@ -63,10 +68,17 @@ public class HorseRacing {
         }
     }
 
-
+    /**
+     * Method which solve win or lose your bet
+     *
+     * @param horses      array of horses in race
+     * @param bankAccount account which gambling
+     * @return true if bet win
+     */
     private boolean bet(Horse[] horses, BankAccount bankAccount) {
         String nameOfBet = null;
         BigDecimal betMoney = BigDecimal.valueOf(1l);
+
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("input Horse name: ");
             nameOfBet = reader.readLine();
@@ -75,10 +87,12 @@ public class HorseRacing {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Future<Integer> result = null;
+
+        Future<Integer> result;
         ExecutorService ex = Executors.newCachedThreadPool();
         int timeOfWinner = 1000;
         String nameOfWinner = null;
+
         try {
             for (Horse horse : horses) {
                 result = ex.submit(horse);

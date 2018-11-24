@@ -1,7 +1,11 @@
 package com.kav.epam.lesson12.strategy;
 
 /**
- * Created by zstudent on 15/10/2018.
+ * FlyWithWings
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class FlyWithWings implements FlyBehavior{
 

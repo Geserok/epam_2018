@@ -1,7 +1,11 @@
 package com.kav.epam.lesson10;
 
 /**
- * Created by zstudent on 08/10/2018.
+ * Barsik
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class Barsik extends Cat {
     public Barsik(String name, String gender, String description, byte age) {

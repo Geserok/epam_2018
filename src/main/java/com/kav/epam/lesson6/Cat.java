@@ -1,7 +1,11 @@
 package com.kav.epam.lesson6;
 
 /**
- * Created by zstudent on 01/10/2018.
+ * Cat
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class Cat {
     private String name;

@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by zstudent on 01/10/2018.
+ * ArrEx
+ *
+ * @author Andrey Kudarenko
+ * @version 1.0
+ * @since 1.8
  */
 public class ArrEx {
     public static void main(String[] args) {

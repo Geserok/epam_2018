@@ -1,4 +1,4 @@
-package com.kav.epam.homework6;
+package com.kav.epam.homework6.atm;
 
 import org.junit.Assert;
 import org.junit.Before;

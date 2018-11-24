@@ -18,7 +18,7 @@ public class Person extends Player {
     /**
      * Method which auto set person ships
      *
-     * @return
+     * @return field of ships
      */
     @Override
     public String[][] autoSetShips() {
@@ -31,7 +31,7 @@ public class Person extends Player {
     /**
      * Method which manual set person ships
      *
-     * @return
+     * @return field of ships
      */
     @Override
     public String[][] manualSetShips() {
@@ -39,30 +39,27 @@ public class Person extends Player {
 
         FieldCreator fieldCreator = new FieldCreator();
         String[][] personField = fieldCreator.create();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            for (int i = 1; i < 5; i++) {
-                for (int j = 5 - i; j > 0; j--) {
-                    System.out.print("Input a coordinates of " + i + " Deck Ship: ");
-                    System.out.print("Input a head coordinates in format (Letter + number + direction(n, s, w, e)) ");
-                    try {
-                        int xHead = Character.toLowerCase(reader.readLine().charAt(0)) - 97;
-                        int yHead = Integer.parseInt(reader.readLine());
-                        String direct = reader.readLine();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        for (int i = 1; i < 5; i++) {
+            for (int j = 5 - i; j > 0; j--) {
+                System.out.print("Input a coordinates of " + i + " Deck Ship: ");
+                System.out.print("Input a head coordinates in format (Letter + number + direction(n, s, w, e)) ");
+                try {
+                    int xHead = Character.toLowerCase(reader.readLine().charAt(0)) - 97;
+                    int yHead = Integer.parseInt(reader.readLine());
+                    String direct = reader.readLine();
 
-                        Ship ship = shipFactory.createShip(i, xHead, yHead, direct);
-                        fieldCreator.setShip(personField, ship);
-                        shipPool.add(ship);
-                        FieldCreator.printField(personField);
-                    } catch (IllegalArgumentException | IOException e) {
-                        System.err.println(e.getMessage());
-                        j++;
-                    }
+                    Ship ship = shipFactory.createShip(i, xHead, yHead, direct);
+                    fieldCreator.setShip(personField, ship);
+                    personShipPool.add(ship);
+                    FieldCreator.printField(personField);
+                } catch (IllegalArgumentException | IOException e) {
+                    System.err.println(e.getMessage());
+                    j++;
                 }
             }
-            FieldCreator.printField(personField);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        FieldCreator.printField(personField);
         return personField;
     }
 

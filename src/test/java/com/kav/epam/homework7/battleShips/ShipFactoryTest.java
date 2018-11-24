@@ -10,31 +10,30 @@ public class ShipFactoryTest {
     ShipFactory shipFactory;
 
     @Before
-    public void init(){
+    public void init() {
         shipFactory = new ShipFactory();
     }
 
     @Test
-    public void createShip1() {
+    public void testCreateShip() {
         Ship ship = shipFactory.createShip(1, 1, 1, "e");
         assertEquals(1, ship.size);
-    }
-
-    @Test
-    public void createShip2() {
-        Ship ship = shipFactory.createShip(2, 1, 1, "e");
+        ship = shipFactory.createShip(2, 1, 1, "e");
         assertEquals(2, ship.size);
-    }
-
-    @Test
-    public void createShip3() {
-        Ship ship = shipFactory.createShip(3, 1, 1, "e");
+        ship = shipFactory.createShip(3, 1, 1, "e");
         assertEquals(3, ship.size);
-    }
-
-    @Test
-    public void createShip4() {
-        Ship ship = shipFactory.createShip(4, 1, 1, "e");
+        ship = shipFactory.createShip(4, 1, 1, "e");
         assertEquals(4, ship.size);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateShipException1() {
+        Ship ship = shipFactory.createShip(6, 1, 1, "e");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateShipException2() {
+        Ship ship = shipFactory.createShip(1, -1, 1, "e");
+    }
+
 }

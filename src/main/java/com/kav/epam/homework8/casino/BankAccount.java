@@ -16,12 +16,22 @@ public class BankAccount {
         this.cashAccount = cashAccount;
     }
 
-    public void deposit(BigDecimal cash){
+    /**
+     * Method which deposit money on cash acc
+     *
+     * @param cash money to deposit
+     */
+    public void deposit(BigDecimal cash) {
         setCashAccount(cashAccount.add(cash));
     }
 
-    public void subs(BigDecimal cash){
-        if (cashAccount.compareTo(cash) > 0){
+    /**
+     * Method which subtract money from cash acc
+     *
+     * @param cash money to subtract
+     */
+    public void subs(BigDecimal cash) {
+        if (cashAccount.compareTo(cash) > 0) {
             setCashAccount(cashAccount.subtract(cash));
         }
     }
